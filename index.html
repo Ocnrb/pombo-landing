@@ -675,7 +675,7 @@
 
         .pillars-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 1px;
             background: var(--border);
             border: 1px solid var(--border);
@@ -1648,6 +1648,45 @@
             color: var(--text-1);
         }
 
+        /* Ownership responsibility callout */
+        .ownership-callout {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(234,179,8,0.04);
+            border: 1px solid rgba(234,179,8,0.15);
+            border-radius: 0.75rem;
+            padding: 1.25rem 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .ownership-callout-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(234,179,8,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: #eab308;
+        }
+
+        .ownership-callout-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .ownership-callout p {
+            font-size: 0.8125rem;
+            color: var(--text-2);
+            line-height: 1.65;
+        }
+
+        .ownership-callout strong {
+            color: #eab308;
+        }
+
         /* ============================================
            SECURITY / CRYPTO SNIPPET
            ============================================ */
@@ -2251,7 +2290,7 @@
             <div class="manifesto-principles">
                 <div class="manifesto-principle reveal stagger-1">
                     <span class="principle-label">No Permissions needed</span>
-                    <p>Your wallet is your identity — unique, cryptographic, and impossible to forge.</p>
+                    <p>Your identity is an EVM wallet — unique, cryptographic, and impossible to forge.</p>
                 </div>
                 <div class="manifesto-principle reveal stagger-2">
                     <span class="principle-label">No central servers</span>
@@ -2259,7 +2298,7 @@
                 </div>
                 <div class="manifesto-principle reveal stagger-3">
                     <span class="principle-label">No middlemen</span>
-                    <p>Nobody between you and the people you talk to.</p>
+                    <p>No company between you and the people you talk to.</p>
                 </div>
             </div>
         </div>
@@ -2295,6 +2334,16 @@
                         Every line of code is open source. The encryption runs in your 
                         browser using standard Web APIs. Nothing is hidden, 
                         everything is verifiable.
+                    </p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-num">04</div>
+                    <h3>Free to Use</h3>
+                    <p>
+                        Joining and chatting in channels is always free. A small fee 
+                        in POL is paid whenever you interact with the blockchain — 
+                        creating channels, first-time setting up a DM inbox, or managing 
+                        on-chain access permissions.
                     </p>
                 </div>
             </div>
@@ -2365,6 +2414,14 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Responsibility callout -->
+            <div class="ownership-callout reveal">
+                <div class="ownership-callout-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+                </div>
+                <p><strong>With sovereignty comes responsibility.</strong> There is no "Forgot password" button — no company can reset your account. Save your private key or use the built-in backup feature to keep your account safe.</p>
             </div>
         </div>
     </section>
@@ -2451,21 +2508,24 @@
                     <h2 class="own-title">Message anyone.<br>Just an address.</h2>
                     <p class="own-desc">
                         Send end-to-end encrypted messages to any Ethereum address. 
-                        No friend request, no mutual contacts needed — if you know 
-                        someone's address, you can reach them.
+                        No friend requests, no mutual contacts — just an address.
                     </p>
                     <div class="own-points">
                         <div class="own-point">
                             <div class="own-point-dot"></div>
-                            <p><strong>Encrypted by default.</strong> Both wallets independently compute a shared secret. No one else can derive it — not even the network nodes.</p>
+                            <p><strong>Your DM inbox works like a mailbox.</strong> Anyone can write to you; only you can read it. A one-time on-chain registration (small fee in POL) creates two streams tied to your address — one for stored data, one ephemeral.</p>
                         </div>
                         <div class="own-point">
                             <div class="own-point-dot"></div>
-                            <p><strong>No social graph.</strong> Your inbox is public-write, owner-read. The network can't see who's talking to you.</p>
+                            <p><strong>E2E encrypted with ECDH.</strong> Both wallets independently compute a shared secret. Messages are encrypted with AES-256-GCM — not even the network nodes can read them.</p>
                         </div>
                         <div class="own-point">
                             <div class="own-point-dot"></div>
-                            <p><strong>Push notifications</strong> that respect your privacy — anonymous relays wake your device without knowing who the message is for.</p>
+                            <p><strong>Stored locally + on storage nodes.</strong> Sent DM messages are saved encrypted on your device. Received messages are kept on storage nodes. Both merge seamlessly when you open a conversation.</p>
+                        </div>
+                        <div class="own-point">
+                            <div class="own-point-dot"></div>
+                            <p><strong>Cross-device sync.</strong> Your inbox doubles as a sync channel — encrypted state is published to your own stream and fetched by any new device you sign in on.</p>
                         </div>
                     </div>
                 </div>
