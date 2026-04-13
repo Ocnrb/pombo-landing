@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pombo — Own Your Conversations</title>
+    <meta name="description" content="Pombo is a decentralized chat where you own your channels, your messages, and your identity. No accounts, no servers, no compromise.">
+    <meta name="theme-color" content="#000000">
+    <meta name="color-scheme" content="dark">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+    <link rel="shortcut icon" href="/favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #000000;
+            --surface: #09090b;
+            --elevated: #0f0f12;
+            --card: #111113;
+            --accent: #F6851B;
+            --accent-hover: #e5780f;
+            --text-1: rgba(255,255,255,0.87);
+            --text-2: rgba(255,255,255,0.55);
+            --text-3: rgba(255,255,255,0.30);
+            --border: rgba(255,255,255,0.06);
+            --border-l: rgba(255,255,255,0.10);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background: var(--bg);
+            color-scheme: dark;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text-1);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 4px; }
+
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(32px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-40px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(40px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes breathe {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50%      { opacity: 0.7; transform: scale(1.05); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50%      { transform: translateY(-6px); }
+        }
+
+        @keyframes lineGrow {
+            from { transform: scaleX(0); }
+            to   { transform: scaleX(1); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(246,133,27,0.3); }
+            50%      { box-shadow: 0 0 0 12px rgba(246,133,27,0); }
+        }
+
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+        }
+
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); opacity: 0.3; }
+            50%      { transform: translateY(6px); opacity: 0.6; }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.96);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .stagger-1 { transition-delay: 0.05s; }
+        .stagger-2 { transition-delay: 0.10s; }
+        .stagger-3 { transition-delay: 0.15s; }
+        .stagger-4 { transition-delay: 0.20s; }
+        .stagger-5 { transition-delay: 0.25s; }
+
+        /* ============================================
+           NAV
+           ============================================ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: transparent;
+            transition: background 0.4s, border-color 0.4s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .nav.scrolled {
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom-color: var(--border);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 3.75rem;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+        }
+
+        .nav-brand img {
+            width: 1.75rem;
+            height: 1.75rem;
+        }
+
+        .nav-brand span {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.8125rem;
+            font-weight: 400;
+            color: var(--text-3);
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--text-1); }
+
+        .btn-launch {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.375rem;
+            border-radius: 2rem;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            background: var(--accent);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 4px 20px rgba(246,133,27,0.25);
+        }
+
+        .btn-launch:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 28px rgba(246,133,27,0.35);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* ============================================
+           HERO
+           ============================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 6rem 1.5rem 4rem;
+        }
+
+        /* Ambient glow */
+        .hero-glow {
+            position: absolute;
+            width: 540px;
+            height: 540px;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -55%);
+            background: radial-gradient(circle, rgba(246,133,27,0.06) 0%, transparent 70%);
+            animation: breathe 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 680px;
+        }
+
+        .hero-logo {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 2.5rem;
+            animation: fadeIn 0.6s ease-out, float 6s ease-in-out 0.6s infinite;
+            filter: drop-shadow(0 0 32px rgba(246,133,27,0.15));
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            line-height: 1.06;
+            letter-spacing: -0.035em;
+            animation: fadeUp 0.8s ease-out;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .hero-sub {
+            font-size: clamp(1rem, 2.2vw, 1.1875rem);
+            color: var(--text-2);
+            line-height: 1.7;
+            max-width: 520px;
+            margin: 0 auto 3rem;
+            animation: fadeUp 0.8s ease-out 0.15s both;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            animation: fadeUp 0.8s ease-out 0.3s both;
+            flex-wrap: wrap;
+        }
+
+        .btn-hero {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9375rem 2.25rem;
+            border-radius: 2rem;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+
+        .btn-hero.primary {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 6px 32px rgba(246,133,27,0.3);
+        }
+
+        .btn-hero.primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 40px rgba(246,133,27,0.4);
+        }
+
+        .btn-hero.ghost {
+            background: transparent;
+            color: var(--text-2);
+            border: 1px solid var(--border-l);
+        }
+
+        .btn-hero.ghost:hover {
+            color: white;
+            border-color: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.04);
+        }
+
+        .hero-scroll-hint {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: fadeIn 1s ease-out 1.2s both;
+        }
+
+        .hero-scroll-hint svg {
+            color: var(--text-3);
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        /* ============================================
+           MANIFESTO
+           ============================================ */
+        .manifesto {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .manifesto-content {
+            text-align: center;
+            margin-bottom: 4.5rem;
+        }
+
+        .manifesto-statement {
+            font-size: clamp(2rem, 5vw, 3.25rem);
+            font-weight: 800;
+            letter-spacing: -0.035em;
+            line-height: 1.12;
+            margin-bottom: 1.5rem;
+        }
+
+        .manifesto-statement em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .manifesto-sub {
+            font-size: clamp(1rem, 2vw, 1.125rem);
+            color: var(--text-2);
+            line-height: 1.8;
+        }
+
+        .manifesto-principles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        .manifesto-principle {
+            background: var(--bg);
+            padding: 2.25rem 2rem;
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .manifesto-principle:hover {
+            background: var(--surface);
+        }
+
+        .principle-label {
+            display: inline-block;
+            font-size: 0.8125rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+            margin-bottom: 0.625rem;
+        }
+
+        .manifesto-principle p {
+            font-size: 0.875rem;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           PILLARS
+           ============================================ */
+        .pillars {
+            padding: 4rem 0 8rem;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            overflow: hidden;
+        }
+
+        .pillar {
+            background: var(--bg);
+            padding: 3rem 2.25rem;
+            position: relative;
+            transition: background 0.4s;
+        }
+
+        .pillar:hover {
+            background: var(--surface);
+        }
+
+        .pillar-num {
+            font-size: 0.625rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-family: monospace;
+        }
+
+        .pillar h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.875rem;
+        }
+
+        .pillar p {
+            font-size: 0.875rem;
+            color: var(--text-2);
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           OWNERSHIP
+           ============================================ */
+        .ownership {
+            padding: 8rem 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .ownership-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .own-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 1.25rem;
+        }
+
+        .own-title {
+            font-size: clamp(1.75rem, 3.5vw, 2.375rem);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+        }
+
+        .own-desc {
+            font-size: 1rem;
+            color: var(--text-2);
+            line-height: 1.75;
+            margin-bottom: 2rem;
+        }
+
+        .own-points {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .own-point {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .own-point-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+            margin-top: 0.5rem;
+        }
+
+        .own-point p {
+            font-size: 0.875rem;
+            color: var(--text-2);
+            line-height: 1.65;
+        }
+
+        .own-point strong {
+            color: var(--text-1);
+        }
+
+        /* Visual card */
+        .own-visual {
+            position: relative;
+        }
+
+        .own-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        .own-card-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .own-card-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            animation: pulse 2.5s ease-in-out infinite;
+        }
+
+        .own-card-name {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .own-card-tag {
+            font-size: 0.625rem;
+            color: var(--text-3);
+            font-family: monospace;
+            margin-left: auto;
+        }
+
+        .own-card-body {
+            padding: 1.5rem;
+        }
+
+        .own-card-item {
+            display: flex;
+            align-items: center;
+            gap: 0.875rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .own-card-item:last-child {
+            border-bottom: none;
+        }
+
+        .own-card-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .own-card-icon svg {
+            width: 14px;
+            height: 14px;
+            color: var(--text-2);
+        }
+
+        .own-card-item-text {
+            font-size: 0.8125rem;
+            color: var(--text-2);
+        }
+
+        .own-card-item-text strong {
+            color: white;
+            font-weight: 500;
+        }
+
+        .own-card-badge {
+            margin-left: auto;
+            font-size: 0.625rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .badge-you {
+            background: rgba(246,133,27,0.12);
+            color: var(--accent);
+        }
+
+        .badge-open {
+            background: rgba(52,211,153,0.1);
+            color: #34d399;
+        }
+
+        /* ============================================
+           EXPLORE
+           ============================================ */
+        .explore {
+            padding: 8rem 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .explore-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 1.25rem;
+        }
+
+        .explore-title {
+            font-size: clamp(1.75rem, 3.5vw, 2.375rem);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+
+        .explore-desc {
+            font-size: 1rem;
+            color: var(--text-2);
+            line-height: 1.75;
+            max-width: 520px;
+            margin: 0 auto 3.5rem;
+        }
+
+        /* Marquee of channel examples */
+        .channel-marquee-wrap {
+            position: relative;
+            overflow: hidden;
+            mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+            margin-bottom: 3.5rem;
+        }
+
+        .channel-marquee {
+            display: flex;
+            gap: 0.75rem;
+            width: max-content;
+            animation: marquee 40s linear infinite;
+        }
+
+        .channel-marquee:hover {
+            animation-play-state: paused;
+        }
+
+        .ch-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.25rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 2rem;
+            font-size: 0.8125rem;
+            color: var(--text-2);
+            white-space: nowrap;
+            transition: border-color 0.2s, color 0.2s;
+            cursor: default;
+        }
+
+        .ch-pill:hover {
+            border-color: var(--border-l);
+            color: var(--text-1);
+        }
+
+        .ch-pill-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .ch-pill-dot.public { background: #34d399; }
+        .ch-pill-dot.protected { background: var(--accent); }
+        .ch-pill-dot.private { background: #60a5fa; }
+
+        .explore-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .explore-card {
+            background: var(--bg);
+            padding: 2rem;
+            transition: background 0.3s;
+        }
+
+        .explore-card:hover {
+            background: var(--surface);
+        }
+
+        .explore-card h4 {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .explore-card p {
+            font-size: 0.8125rem;
+            color: var(--text-2);
+            line-height: 1.65;
+        }
+
+        .explore-card-badge {
+            display: inline-block;
+            font-size: 0.5625rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            margin-bottom: 0.875rem;
+        }
+
+        .card-public .explore-card-badge {
+            background: rgba(52,211,153,0.1);
+            color: #34d399;
+        }
+
+        .card-protected .explore-card-badge {
+            background: rgba(246,133,27,0.1);
+            color: var(--accent);
+        }
+
+        .card-private .explore-card-badge {
+            background: rgba(96,165,250,0.1);
+            color: #60a5fa;
+        }
+
+        /* ============================================
+           DM SECTION
+           ============================================ */
+        .dm-section {
+            padding: 8rem 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .dm-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .dm-visual {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .dm-bubble {
+            max-width: 85%;
+            padding: 1rem 1.25rem;
+            border-radius: 1rem;
+            font-size: 0.875rem;
+            line-height: 1.55;
+            position: relative;
+        }
+
+        .dm-bubble.sent {
+            align-self: flex-end;
+            background: #272a2e;
+            color: var(--text-1);
+            border-bottom-right-radius: 0.25rem;
+        }
+
+        .dm-bubble.received {
+            align-self: flex-start;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-1);
+            border-bottom-left-radius: 0.25rem;
+        }
+
+        .dm-bubble-addr {
+            font-size: 0.625rem;
+            font-family: monospace;
+            color: var(--text-3);
+            margin-bottom: 0.375rem;
+        }
+
+        .dm-bubble-lock {
+            position: absolute;
+            bottom: 0.5rem;
+            right: 0.75rem;
+            color: var(--text-3);
+        }
+
+        .dm-bubble-lock svg {
+            width: 10px;
+            height: 10px;
+        }
+
+        /* ============================================
+           UNDER THE HOOD (MINIMAL TECH)
+           ============================================ */
+        .tech {
+            padding: 8rem 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .tech-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .tech-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-3);
+            margin-bottom: 1rem;
+        }
+
+        .tech-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--text-2);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        .tech-item {
+            background: var(--bg);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .tech-item:hover {
+            background: var(--surface);
+        }
+
+        .tech-item-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.375rem;
+            letter-spacing: -0.02em;
+        }
+
+        .tech-item-value.accent { color: var(--accent); }
+        .tech-item-value.green  { color: #34d399; }
+        .tech-item-value.blue   { color: #60a5fa; }
+        .tech-item-value.white  { color: white; }
+
+        .tech-item-label {
+            font-size: 0.75rem;
+            color: var(--text-3);
+            line-height: 1.5;
+        }
+
+        /* ============================================
+           CTA
+           ============================================ */
+        .cta {
+            padding: 10rem 0 8rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 480px;
+            height: 480px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(246,133,27,0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta h2 {
+            font-size: clamp(2rem, 4.5vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
+        }
+
+        .cta h2 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .cta p {
+            font-size: 1.0625rem;
+            color: var(--text-2);
+            max-width: 420px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            padding: 2.5rem 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-3);
+        }
+
+        .footer-left img {
+            width: 1.25rem;
+            height: 1.25rem;
+            opacity: 0.5;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            font-size: 0.75rem;
+            color: var(--text-3);
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: white; }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 1023px) {
+            .ownership-layout,
+            .dm-layout {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .dm-visual { order: -1; }
+
+            .pillars-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .manifesto-principles {
+                grid-template-columns: 1fr;
+            }
+
+            .explore-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .nav-links { display: none; }
+            .nav-toggle { display: block; }
+
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 3.75rem;
+                left: 0;
+                right: 0;
+                background: rgba(0,0,0,0.95);
+                backdrop-filter: blur(20px);
+                padding: 1.25rem 1.5rem;
+                gap: 1rem;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .hero h1 { font-size: 2.25rem; }
+
+            .tech-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .btn-hero {
+                padding: 0.8125rem 1.75rem;
+                font-size: 0.875rem;
+            }
+
+            .hero-scroll-hint { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="nav" id="nav">
+        <div class="container nav-inner">
+            <a href="#" class="nav-brand">
+                <img src="favicon/favicon.svg" alt="Pombo">
+                <span>Pombo</span>
+            </a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#manifesto">Manifesto</a></li>
+                <li><a href="#ownership">Ownership</a></li>
+                <li><a href="#explore">Explore</a></li>
+                <li><a href="#dm">DMs</a></li>
+            </ul>
+            <a href="index.html" class="btn-launch">Open App</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-glow"></div>
+        <div class="hero-content">
+            <img src="favicon/favicon.svg" alt="" class="hero-logo">
+            <h1>Your conversations<br>belong to <em>you</em>.</h1>
+            <p class="hero-sub">
+                Pombo is a gateway to decentralized chat. Channels live on the network, 
+                not on our servers. We can't read your messages, shut down your groups, 
+                or lock you out.
+            </p>
+            <div class="hero-actions">
+                <a href="index.html" class="btn-hero primary">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/></svg>
+                    Start Chatting
+                </a>
+                <a href="index.html" class="btn-hero ghost">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    Install App
+                </a>
+            </div>
+        </div>
+        <div class="hero-scroll-hint">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/></svg>
+        </div>
+    </section>
+
+    <!-- MANIFESTO -->
+    <section class="manifesto" id="manifesto">
+        <div class="container">
+            <div class="manifesto-content reveal">
+                <h2 class="manifesto-statement">
+                    Conversations are<br><em>personal property</em>.
+                </h2>
+                <p class="manifesto-sub">
+                    Not data to be harvested. Not content to be controlled.<br>
+                    Not leverage to be sold.
+                </p>
+            </div>
+            <div class="manifesto-principles">
+                <div class="manifesto-principle reveal stagger-1">
+                    <span class="principle-label">No accounts</span>
+                    <p>Your identity is a wallet you generate yourself.</p>
+                </div>
+                <div class="manifesto-principle reveal stagger-2">
+                    <span class="principle-label">No servers</span>
+                    <p>Messages travel through a peer-to-peer network.</p>
+                </div>
+                <div class="manifesto-principle reveal stagger-3">
+                    <span class="principle-label">No middlemen</span>
+                    <p>Nobody between you and the people you talk to.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PILLARS -->
+    <section class="pillars">
+        <div class="container">
+            <div class="pillars-grid reveal-scale">
+                <div class="pillar">
+                    <div class="pillar-num">01</div>
+                    <h3>Sovereignty</h3>
+                    <p>
+                        Your identity is an Ethereum wallet — something you generate 
+                        and control. No email, no phone number, no company database 
+                        storing who you are.
+                    </p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-num">02</div>
+                    <h3>Decentralization</h3>
+                    <p>
+                        Messages travel through the Streamr Network. Each channel 
+                        forms its own peer-to-peer overlay — a constellation of the 
+                        nodes participating in the conversation. There is no central 
+                        server to hack, censor, or shut down.
+                    </p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-num">03</div>
+                    <h3>Transparency</h3>
+                    <p>
+                        Every line of code is open source. The encryption runs in your 
+                        browser using standard Web APIs. Nothing is hidden, 
+                        everything is verifiable.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OWNERSHIP -->
+    <section class="ownership" id="ownership">
+        <div class="container">
+            <div class="ownership-layout">
+                <div class="reveal">
+                    <div class="own-label">Ownership</div>
+                    <h2 class="own-title">Channels belong to their creators.</h2>
+                    <p class="own-desc">
+                        When you create a channel in Pombo, you're creating a data stream 
+                        recorded on the Polygon blockchain with a smart contract. Your wallet 
+                        holds the on-chain ownership and permissions. Pombo is just the 
+                        interface; the channel is yours.
+                    </p>
+                    <div class="own-points">
+                        <div class="own-point">
+                            <div class="own-point-dot"></div>
+                            <p><strong>You set the rules.</strong> Choose who can join, whether messages are encrypted, and how long history is stored.</p>
+                        </div>
+                        <div class="own-point">
+                            <div class="own-point-dot"></div>
+                            <p><strong>You hold the keys.</strong> Your channels are tied to your wallet. No one — including Pombo — can take them away or alter permissions.</p>
+                        </div>
+                        <div class="own-point">
+                            <div class="own-point-dot"></div>
+                            <p><strong>Pombo is a gateway.</strong> If Pombo disappears tomorrow, your channels still exist on the network. Any compatible client can access them.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="own-visual reveal stagger-2">
+                    <div class="own-card">
+                        <div class="own-card-header">
+                            <div class="own-card-dot"></div>
+                            <span class="own-card-name">#design-guild</span>
+                            <span class="own-card-tag">0x7a2…f41</span>
+                        </div>
+                        <div class="own-card-body">
+                            <div class="own-card-item">
+                                <div class="own-card-icon">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0"/></svg>
+                                </div>
+                                <span class="own-card-item-text"><strong>Owner</strong>&nbsp; vitalik.eth</span>
+                                <span class="own-card-badge badge-you">You</span>
+                            </div>
+                            <div class="own-card-item">
+                                <div class="own-card-icon">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75"/></svg>
+                                </div>
+                                <span class="own-card-item-text"><strong>Encryption</strong>&nbsp; Password</span>
+                                <span class="own-card-badge badge-open">Active</span>
+                            </div>
+                            <div class="own-card-item">
+                                <div class="own-card-icon">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375"/></svg>
+                                </div>
+                                <span class="own-card-item-text"><strong>Storage</strong>&nbsp; 180 days</span>
+                            </div>
+                            <div class="own-card-item">
+                                <div class="own-card-icon">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197"/></svg>
+                                </div>
+                                <span class="own-card-item-text"><strong>Members</strong>&nbsp; 47 peers connected</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPLORE -->
+    <section class="explore" id="explore">
+        <div class="container">
+            <div class="explore-label reveal">Explore</div>
+            <h2 class="explore-title reveal stagger-1">Discover channels.<br>Or create your own.</h2>
+            <p class="explore-desc reveal stagger-2">
+                Public channels are open for anyone to join — communities, projects, 
+                topics. Browse, join, or spin up a new one in seconds.
+            </p>
+
+            <!-- Scrolling channel pills -->
+            <div class="channel-marquee-wrap reveal stagger-3">
+                <div class="channel-marquee">
+                    <span class="ch-pill"><span class="ch-pill-dot public"></span>#streamr-community</span>
+                    <span class="ch-pill"><span class="ch-pill-dot protected"></span>#crypto-ptc 🔒</span>
+                    <span class="ch-pill"><span class="ch-pill-dot public"></span>#buidlers-lounge</span>
+                    <span class="ch-pill"><span class="ch-pill-dot private"></span>#dao-core ⛓️</span>
+                    <span class="ch-pill"><span class="ch-pill-dot public"></span>#gm-channel</span>
+                    <span class="ch-pill"><span class="ch-pill-dot protected"></span>#alpha-group 🔒</span>
+                    <span class="ch-pill"><span class="ch-pill-dot public"></span>#ethereum-brasil</span>
+                    <span class="ch-pill"><span class="ch-pill-dot private"></span>#team-ops ⛓️</span>
+                    <span class="ch-pill"><span class="ch-pill-dot public"></span>#web3-design</span>
+                    <span class="ch-pill"><span class="ch-pill-dot protected"></span>#defi-signal 🔒</span>
+                    <!-- duplicate set for seamless loop -->
+                    <span class="ch-pill"><span class="ch-pill-dot public"></span>#streamr-community</span>
+                    <span class="ch-pill"><span class="ch-pill-dot protected"></span>#crypto-ptc 🔒</span>
+                    <span class="ch-pill"><span class="ch-pill-dot public"></span>#buidlers-lounge</span>
+                    <span class="ch-pill"><span class="ch-pill-dot private"></span>#dao-core ⛓️</span>
+                    <span class="ch-pill"><span class="ch-pill-dot public"></span>#gm-channel</span>
+                    <span class="ch-pill"><span class="ch-pill-dot protected"></span>#alpha-group 🔒</span>
+                    <span class="ch-pill"><span class="ch-pill-dot public"></span>#ethereum-brasil</span>
+                    <span class="ch-pill"><span class="ch-pill-dot private"></span>#team-ops ⛓️</span>
+                    <span class="ch-pill"><span class="ch-pill-dot public"></span>#web3-design</span>
+                    <span class="ch-pill"><span class="ch-pill-dot protected"></span>#defi-signal 🔒</span>
+                </div>
+            </div>
+
+            <div class="explore-cards reveal-scale stagger-4">
+                <div class="explore-card card-public">
+                    <span class="explore-card-badge">Public</span>
+                    <h4>Open Channels</h4>
+                    <p>Anyone can join, no password needed. Perfect for communities, public discourse, and open collaboration.</p>
+                </div>
+                <div class="explore-card card-protected">
+                    <span class="explore-card-badge">Password</span>
+                    <h4>Protected Channels</h4>
+                    <p>Encrypted with a shared password. Share the password with your group and messages stay between you.</p>
+                </div>
+                <div class="explore-card card-private">
+                    <span class="explore-card-badge">Private</span>
+                    <h4>On-Chain Access</h4>
+                    <p>Members are authorized by Ethereum address on the blockchain. The network itself enforces who can participate.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DMs -->
+    <section class="dm-section" id="dm">
+        <div class="container">
+            <div class="dm-layout">
+                <div class="dm-visual reveal">
+                    <div class="dm-bubble received">
+                        <div class="dm-bubble-addr">0x7a2…f41</div>
+                        hey, saw your post on the DAO forum. want to collaborate?
+                        <span class="dm-bubble-lock"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg></span>
+                    </div>
+                    <div class="dm-bubble sent">
+                        absolutely. let me send you the proposal doc
+                        <span class="dm-bubble-lock"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg></span>
+                    </div>
+                    <div class="dm-bubble received">
+                        <div class="dm-bubble-addr">0x7a2…f41</div>
+                        perfect. this is so much better than email 🕊️
+                        <span class="dm-bubble-lock"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg></span>
+                    </div>
+                </div>
+                <div class="reveal stagger-2">
+                    <div class="own-label">Direct Messages</div>
+                    <h2 class="own-title">Message anyone.<br>Just an address.</h2>
+                    <p class="own-desc">
+                        Send end-to-end encrypted messages to any Ethereum address. 
+                        No friend request, no mutual contacts needed — if you know 
+                        someone's address, you can reach them.
+                    </p>
+                    <div class="own-points">
+                        <div class="own-point">
+                            <div class="own-point-dot"></div>
+                            <p><strong>Encrypted by default.</strong> Both wallets independently compute a shared secret. No one else can derive it — not even the network nodes.</p>
+                        </div>
+                        <div class="own-point">
+                            <div class="own-point-dot"></div>
+                            <p><strong>No social graph.</strong> Your inbox is public-write, owner-read. The network can't see who's talking to you.</p>
+                        </div>
+                        <div class="own-point">
+                            <div class="own-point-dot"></div>
+                            <p><strong>Push notifications</strong> that respect your privacy — anonymous relays wake your device without knowing who the message is for.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECH (MINIMAL) -->
+    <section class="tech" id="tech">
+        <div class="container">
+            <div class="tech-header reveal">
+                <div class="tech-label">Under the Hood</div>
+                <div class="tech-title">Built on proven primitives.</div>
+            </div>
+            <div class="tech-grid reveal-scale stagger-2">
+                <div class="tech-item">
+                    <div class="tech-item-value accent">AES-256</div>
+                    <div class="tech-item-label">Message encryption<br>(GCM mode)</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-item-value green">ECDH</div>
+                    <div class="tech-item-label">DM key exchange<br>(secp256k1)</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-item-value blue">310k</div>
+                    <div class="tech-item-label">PBKDF2 iterations<br>for password channels</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-item-value white">0</div>
+                    <div class="tech-item-label">External crypto<br>libraries</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="cta-glow"></div>
+        <div class="container">
+            <div class="cta-content reveal">
+                <h2>Claim your<br><em>digital sovereignty</em>.</h2>
+                <p>
+                    No sign-up. No email. No phone number.<br>
+                    Generate a wallet and say your first words on the free web.
+                </p>
+                <div class="hero-actions" style="justify-content: center;">
+                    <a href="index.html" class="btn-hero primary">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        Launch Pombo
+                    </a>
+                    <a href="https://github.com" class="btn-hero ghost" target="_blank" rel="noopener">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        Source Code
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-left">
+                <img src="favicon/favicon.svg" alt="">
+                Pombo · Decentralized Chat
+            </div>
+            <ul class="footer-links">
+                <li><a href="index.html">App</a></li>
+                <li><a href="#manifesto">Manifesto</a></li>
+                <li><a href="https://streamr.network" target="_blank" rel="noopener">Streamr</a></li>
+                <li><a href="https://ethereum.org" target="_blank" rel="noopener">Ethereum</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.reveal, .reveal-scale').forEach(el => observer.observe(el));
+
+        // Nav scroll
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 40);
+        }, { passive: true });
+
+        // Mobile nav
+        const toggle = document.getElementById('nav-toggle');
+        const links = document.getElementById('nav-links');
+        toggle.addEventListener('click', () => links.classList.toggle('open'));
+        links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                const t = document.querySelector(a.getAttribute('href'));
+                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>
