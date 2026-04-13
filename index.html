@@ -135,7 +135,8 @@
                 flex-wrap: wrap;
             }
 
-            .hero-visual {
+            .hero-visual,
+            .own-visual {
                 display: none;
             }
 
@@ -171,7 +172,8 @@
                 grid-template-columns: 1fr;
             }
 
-            .storage-callout {
+            .storage-callout,
+            .ownership-callout {
                 flex-direction: column;
                 text-align: center;
             }
@@ -296,7 +298,6 @@
             z-index: 100;
             width: 100vw;
             max-width: 100%;
-            overflow: hidden;
             background: transparent;
             transition: background 0.4s, border-color 0.4s;
             border-bottom: 1px solid transparent;
@@ -1701,7 +1702,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
             gap: 3rem;
-            align-items: start;
+            align-items: center;
         }
 
         .security-stack {
@@ -1751,39 +1752,187 @@
             line-height: 1.55;
         }
 
-        .crypto-snippet {
+        /* Encryption animation */
+        .encrypt-demo {
             background: var(--elevated);
             border: 1px solid var(--border);
             border-radius: 1.25rem;
-            padding: 1.75rem;
-            font-family: 'SF Mono', 'Fira Code', monospace;
-            font-size: 0.8125rem;
-            line-height: 1.8;
-            color: var(--text-2);
-            overflow-x: auto;
-            position: relative;
+            padding: 1.75rem 1.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            overflow: hidden;
         }
 
-        .crypto-snippet::before {
-            content: 'How encryption works';
-            position: absolute;
-            top: 0;
-            left: 1.75rem;
-            transform: translateY(-50%);
-            font-family: 'Inter', sans-serif;
+        .encrypt-demo-label {
             font-size: 0.625rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.12em;
             color: var(--text-3);
-            background: var(--elevated);
-            padding: 0 0.5rem;
         }
 
-        .crypto-snippet .keyword { color: var(--accent); }
-        .crypto-snippet .string  { color: #34d399; }
-        .crypto-snippet .comment { color: var(--text-3); }
-        .crypto-snippet .number  { color: #60a5fa; }
+        .encrypt-demo-msg {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            line-height: 1.55;
+            color: #f0f0f0;
+            background: #272a2e;
+            padding: 0.625rem 1rem;
+            border-radius: 1rem 1rem 0.25rem 1rem;
+            align-self: flex-end;
+            max-width: 85%;
+            display: flex;
+            align-items: center;
+            transition: opacity 0.4s, background 0.4s, border-radius 0.4s;
+        }
+
+        .encrypt-demo-msg.cipher {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.7rem;
+            color: var(--accent);
+            background: rgba(246,133,27,0.08);
+            border: 1px solid rgba(246,133,27,0.15);
+            border-radius: 0.75rem;
+            word-break: break-all;
+            opacity: 0.9;
+            align-self: flex-end;
+        }
+
+        .encrypt-demo-bar {
+            width: 100%;
+            height: 3px;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .encrypt-demo-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--accent);
+            border-radius: 2px;
+            transition: width 0.1s linear;
+        }
+
+        .encrypt-demo-status {
+            font-size: 0.6875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .encrypt-demo-status .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--text-3);
+            transition: background 0.3s;
+        }
+
+        .encrypt-demo-status.encrypting .dot { background: var(--accent); }
+        .encrypt-demo-status.encrypted .dot { background: #34d399; }
+        .encrypt-demo-status.encrypting { color: var(--accent); }
+        .encrypt-demo-status.encrypted { color: #34d399; }
+
+        .encrypt-demo-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .encrypt-demo-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .encrypt-demo-tab {
+            padding: 0.375rem 0.875rem;
+            border-radius: 2rem;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-3);
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+
+        .encrypt-demo-tab:hover {
+            color: var(--text-2);
+            border-color: var(--border-l);
+        }
+
+        .encrypt-demo-tab.active {
+            background: rgba(246,133,27,0.1);
+            border-color: rgba(246,133,27,0.3);
+            color: var(--accent);
+        }
+
+        .encrypt-demo-flow {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .encrypt-demo-node {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.6875rem;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            color: var(--text-2);
+            text-align: center;
+            transition: all 0.4s;
+            opacity: 0.4;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .encrypt-demo-node.active {
+            opacity: 1;
+            border-color: var(--accent);
+            box-shadow: 0 0 12px rgba(246,133,27,0.15);
+        }
+
+        .encrypt-demo-node.done {
+            opacity: 1;
+            border-color: #34d399;
+            box-shadow: 0 0 12px rgba(52,211,153,0.15);
+        }
+
+        .encrypt-demo-node .node-label {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.5625rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-3);
+            margin-bottom: 0.25rem;
+        }
+
+        .encrypt-demo-arrow {
+            color: var(--text-3);
+            font-size: 0.75rem;
+            transition: color 0.3s;
+            flex-shrink: 0;
+        }
+
+        .encrypt-demo-arrow.active { color: var(--accent); }
+        .encrypt-demo-arrow.done { color: #34d399; }
 
         /* ============================================
            COMPARISON TABLE
@@ -1989,7 +2138,8 @@
             .hero-sub { margin-left: auto; margin-right: auto; }
             .hero-actions { justify-content: center; }
             .hero-stats { justify-content: center; flex-wrap: wrap; gap: 1.5rem; }
-            .hero-visual { display: none; }
+            .hero-visual,
+            .own-visual { display: none; }
 
             .ownership-layout,
             .dm-layout,
@@ -1998,6 +2148,10 @@
                 grid-template-columns: 1fr;
                 gap: 3rem;
                 text-align: center;
+            }
+
+            .security > .container > .reveal {
+                max-width: 100% !important;
             }
 
             .own-title,
@@ -2052,8 +2206,8 @@
                 margin: 0 auto;
             }
 
-            .crypto-snippet {
-                font-size: 0.75rem;
+            .encrypt-demo-msg {
+                font-size: 0.875rem;
             }
 
             .diff-header {
@@ -2183,16 +2337,31 @@
             }
 
             .flow-arrow {
-                display: none;
+                transform: rotate(90deg);
+                width: 24px;
+                align-self: center;
             }
 
             .storage-options {
                 grid-template-columns: 1fr;
             }
 
-            .storage-callout {
+            .storage-callout,
+            .ownership-callout {
                 flex-direction: column;
                 text-align: center;
+            }
+
+            .pillars-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dm-bubble {
+                max-width: 95%;
+            }
+
+            .own-card {
+                max-width: 100%;
             }
         }
     </style>
@@ -2470,12 +2639,12 @@
                     <p>Anyone can join, no password needed. Perfect for communities, public discourse, and open collaboration.</p>
                 </div>
                 <div class="explore-card card-protected">
-                    <span class="explore-card-badge">Password</span>
+                    <span class="explore-card-badge">Protected</span>
                     <h4>Protected Channels</h4>
                     <p>Encrypted with a shared password. Share the password with your group and messages stay between you.</p>
                 </div>
                 <div class="explore-card card-private">
-                    <span class="explore-card-badge">Private</span>
+                    <span class="explore-card-badge">Closed</span>
                     <h4>On-Chain Access</h4>
                     <p>Members are authorized by Ethereum address on the blockchain. The network itself enforces who can participate.</p>
                 </div>
@@ -2539,9 +2708,9 @@
             <div class="arch-layout">
                 <div class="reveal">
                     <div class="own-label">How It Works</div>
-                    <h2 class="own-title">Two streams.<br>Zero servers.</h2>
+                    <h2 class="own-title">Multiple streams.<br>Zero servers.</h2>
                     <p class="own-desc">
-                        Every channel uses two separate data streams on the Streamr Network — 
+                        Every channel uses multiple separate data streams on the Streamr Network — 
                         one for messages that are saved, and one for live-only signals 
                         like typing indicators and file transfers.
                     </p>
@@ -2610,7 +2779,7 @@
                             </div>
                         </div>
                         <div class="arch-text">
-                            <h3>Why two streams?</h3>
+                            <h3>Why multiple streams?</h3>
                             <p>
                                 Keeping live signals separate from saved messages means your typing 
                                 indicators and online status are never stored anywhere. Files are 
@@ -2639,7 +2808,7 @@
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
                     </div>
                     <span class="flow-step-label">Encrypt</span>
-                    <span class="flow-step-sub">In your browser</span>
+                    <span class="flow-step-sub">In the browser</span>
                 </div>
                 <div class="flow-arrow">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
@@ -2658,7 +2827,7 @@
                     <div class="flow-step-icon">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/></svg>
                     </div>
-                    <span class="flow-step-label">Storage Node</span>
+                    <span class="flow-step-label">Storage Cluster</span>
                     <span class="flow-step-sub">Encrypted blobs</span>
                 </div>
                 <div class="flow-arrow">
@@ -2669,7 +2838,7 @@
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
                     </div>
                     <span class="flow-step-label">Decrypt</span>
-                    <span class="flow-step-sub">In your browser</span>
+                    <span class="flow-step-sub">In the browser</span>
                 </div>
             </div>
 
@@ -2683,7 +2852,7 @@
                         <h3>Streamr Official</h3>
                         <span class="storage-option-tag tag-default">Default</span>
                     </div>
-                    <p>Managed storage nodes operated by Streamr's team. Zero configuration needed — just start chatting and your message history is preserved.</p>
+                    <p>Official storage cluster operated by Streamr. Zero configuration needed — just start chatting and your message history is preserved.</p>
                     <div class="storage-option-features">
                         <div class="storage-option-feature">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>
@@ -2738,15 +2907,17 @@
     <!-- SECURITY -->
     <section class="security" id="security">
         <div class="container">
+            <div class="reveal" style="margin-bottom: 3rem; max-width: calc(50% - 1.5rem);">
+                <div class="own-label">Security</div>
+                <h2 class="own-title">Encryption you<br>can verify.</h2>
+                <p class="own-desc">
+                    All encryption happens in your browser using built-in browser APIs. 
+                    No external libraries, no hidden servers. The source code is open 
+                    for anyone to audit.
+                </p>
+            </div>
             <div class="security-layout">
                 <div class="reveal">
-                    <div class="own-label">Security</div>
-                    <h2 class="own-title">Encryption you<br>can verify.</h2>
-                    <p class="own-desc">
-                        All encryption happens in your browser using built-in browser APIs. 
-                        No external libraries, no hidden servers. The source code is open 
-                        for anyone to audit.
-                    </p>
                     <div class="security-stack">
                         <div class="security-item">
                             <div class="security-item-icon">
@@ -2763,7 +2934,7 @@
                             </div>
                             <div>
                                 <h4>Direct Messages</h4>
-                                <p>DMs use key agreement between your wallet and the recipient's — both sides independently compute a shared secret that no one else can derive.</p>
+                                <p>DMs use key agreement between your account and the recipient's — both sides independently compute a shared secret that no one else can derive.</p>
                             </div>
                         </div>
                         <div class="security-item">
@@ -2771,31 +2942,86 @@
                                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a2.25 2.25 0 00-2.25-2.25H15a3 3 0 11-6 0H5.25A2.25 2.25 0 003 12m18 0v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 9m18 0V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v3"/></svg>
                             </div>
                             <div>
-                                <h4>Wallet Storage</h4>
-                                <p>Your private key is stored locally on your device, encrypted with your passphrase. It never leaves your browser.</p>
+                                <h4>Account Storage</h4>
+                                <p>Your private key is stored locally on your device, encrypted with your passphrase.</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="reveal stagger-2">
-                    <div class="crypto-snippet">
-                        <span class="comment">// Password channels</span><br>
-                        password → <span class="keyword">PBKDF2</span> (<span class="number">310k</span> rounds)<br>
-                        &nbsp;&nbsp;→ <span class="string">256-bit encryption key</span><br><br>
-                        <span class="comment">// Direct messages</span><br>
-                        your wallet + their wallet → <span class="keyword">ECDH</span><br>
-                        &nbsp;&nbsp;→ <span class="string">shared secret</span> → <span class="keyword">AES-GCM</span><br><br>
-                        <span class="comment">// Every message</span><br>
-                        <span class="keyword">AES-GCM</span> + unique <span class="keyword">IV</span><br>
-                        &nbsp;&nbsp;→ <span class="string">encrypted</span> + <span class="string">tamper-proof</span><br><br>
-                        <span class="comment">// Wallet (local only)</span><br>
-                        passphrase → <span class="keyword">scrypt</span> → <span class="keyword">AES</span><br>
-                        &nbsp;&nbsp;→ <span class="string">encrypted key on your device</span>
+                    <div class="encrypt-demo" id="encrypt-demo">
+                        <div class="encrypt-demo-tabs">
+                            <button class="encrypt-demo-tab active" data-demo="message">Messages</button>
+                            <button class="encrypt-demo-tab" data-demo="ecdh">DM Key Exchange</button>
+                            <button class="encrypt-demo-tab" data-demo="wallet">Account</button>
+                        </div>
+
+                        <!-- Message encryption -->
+                        <div class="encrypt-demo-panel" id="demo-message">
+                            <span class="encrypt-demo-label">Live preview · AES-256-GCM</span>
+                            <div class="encrypt-demo-msg" id="encrypt-msg">hey, want to collaborate on the DAO proposal?</div>
+                            <div class="encrypt-demo-bar"><div class="encrypt-demo-bar-fill" id="encrypt-bar"></div></div>
+                            <div class="encrypt-demo-status" id="encrypt-status"><span class="dot"></span> Plaintext</div>
+                        </div>
+
+                        <!-- ECDH key exchange -->
+                        <div class="encrypt-demo-panel" id="demo-ecdh" style="display:none;">
+                            <span class="encrypt-demo-label">Key agreement · ECDH → AES-GCM</span>
+                            <div class="encrypt-demo-flow" id="ecdh-flow">
+                                <div class="encrypt-demo-node" id="ecdh-a">
+                                    <span class="node-label">Your account</span>
+                                    0xA3f…8c1
+                                </div>
+                                <div class="encrypt-demo-arrow" id="ecdh-arrow1">→</div>
+                                <div class="encrypt-demo-node" id="ecdh-mid">
+                                    <span class="node-label">ECDH</span>
+                                    computing…
+                                </div>
+                                <div class="encrypt-demo-arrow" id="ecdh-arrow2">→</div>
+                                <div class="encrypt-demo-node" id="ecdh-b">
+                                    <span class="node-label">Their account</span>
+                                    0x7a2…f41
+                                </div>
+                            </div>
+                            <div class="encrypt-demo-bar"><div class="encrypt-demo-bar-fill" id="ecdh-bar"></div></div>
+                            <div class="encrypt-demo-status" id="ecdh-status"><span class="dot"></span> Waiting</div>
+                        </div>
+
+                        <!-- Account encryption -->
+                        <div class="encrypt-demo-panel" id="demo-wallet" style="display:none;">
+                            <span class="encrypt-demo-label">Account protection · scrypt → AES</span>
+                            <div class="encrypt-demo-flow" id="wallet-flow">
+                                <div class="encrypt-demo-node" id="wallet-pass">
+                                    <span class="node-label">Passphrase</span>
+                                    ••••••••••
+                                </div>
+                                <div class="encrypt-demo-arrow" id="wallet-arrow1">→</div>
+                                <div class="encrypt-demo-node" id="wallet-scrypt">
+                                    <span class="node-label">scrypt</span>
+                                    deriving…
+                                </div>
+                                <div class="encrypt-demo-arrow" id="wallet-arrow2">→</div>
+                                <div class="encrypt-demo-node" id="wallet-key">
+                                    <span class="node-label">Private key</span>
+                                    encrypted
+                                </div>
+                            </div>
+                            <div class="encrypt-demo-bar"><div class="encrypt-demo-bar-fill" id="wallet-bar"></div></div>
+                            <div class="encrypt-demo-status" id="wallet-status"><span class="dot"></span> Waiting</div>
+                        </div>
                     </div>
                     <p style="font-size: 0.75rem; color: var(--text-3); margin-top: 1rem; text-align: center;">
                         All cryptographic operations run in your browser via <code style="color: var(--accent);">window.crypto.subtle</code>
                     </p>
                 </div>
+            </div>
+
+            <!-- Strong password callout -->
+            <div class="storage-callout reveal" style="margin-top: 3rem;">
+                <div class="storage-callout-icon" style="background: rgba(234,179,8,0.1); color: #eab308;">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+                </div>
+                <p><strong style="color: #eab308;">Strong passwords matter.</strong> Your passwords protect your encrypted channels, your account, and your backups. Use long, unique passwords and store them safely — there is no "Forgot password" button. No one can recover them for you.</p>
             </div>
         </div>
     </section>
@@ -3047,6 +3273,215 @@
                 if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
+
+        // Encryption animation
+        (() => {
+            const messages = [
+                'hey, want to collaborate on the proposal?',
+                'The new contract is deployed on Polygon.',
+                'Check the latest governance vote',
+                'Sent you the design files',
+                'Meeting at 3pm, same channel as yesterday'
+            ];
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+            const msgEl = document.getElementById('encrypt-msg');
+            const barEl = document.getElementById('encrypt-bar');
+            const statusEl = document.getElementById('encrypt-status');
+            if (!msgEl) return;
+
+            let idx = 0;
+            let activeDemo = 'message';
+            let animating = false;
+
+            function fakeCipher(len) {
+                let s = '';
+                for (let i = 0; i < len; i++) s += chars[Math.floor(Math.random() * chars.length)];
+                return s.match(/.{1,32}/g).join('\n');
+            }
+
+            // Tab switching
+            document.querySelectorAll('.encrypt-demo-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const demo = tab.dataset.demo;
+                    if (demo === activeDemo) return;
+                    activeDemo = demo;
+                    document.querySelectorAll('.encrypt-demo-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.querySelectorAll('.encrypt-demo-panel').forEach(p => p.style.display = 'none');
+                    document.getElementById('demo-' + demo).style.display = '';
+                    if (demo === 'ecdh') runEcdh();
+                    else if (demo === 'wallet') runWallet();
+                });
+            });
+
+            // Message encryption cycle
+            function cycle() {
+                if (activeDemo !== 'message') return;
+                const plain = messages[idx];
+                idx = (idx + 1) % messages.length;
+
+                msgEl.textContent = plain;
+                msgEl.classList.remove('cipher');
+                barEl.style.width = '0%';
+                statusEl.className = 'encrypt-demo-status';
+                statusEl.innerHTML = '<span class="dot"></span> Plaintext';
+
+                setTimeout(() => {
+                    if (activeDemo !== 'message') return;
+                    statusEl.className = 'encrypt-demo-status encrypting';
+                    statusEl.innerHTML = '<span class="dot"></span> Encrypting…';
+
+                    let progress = 0;
+                    const steps = 20;
+                    const interval = setInterval(() => {
+                        if (activeDemo !== 'message') { clearInterval(interval); return; }
+                        progress += 100 / steps;
+                        barEl.style.width = Math.min(progress, 100) + '%';
+
+                        const ratio = progress / 100;
+                        const scrambled = plain.split('').map((ch, i) => {
+                            return i < Math.floor(ratio * plain.length)
+                                ? chars[Math.floor(Math.random() * chars.length)]
+                                : ch;
+                        }).join('');
+                        msgEl.textContent = scrambled;
+
+                        if (progress >= 100) {
+                            clearInterval(interval);
+                            msgEl.textContent = fakeCipher(48);
+                            msgEl.classList.add('cipher');
+                            barEl.style.width = '100%';
+                            statusEl.className = 'encrypt-demo-status encrypted';
+                            statusEl.innerHTML = '<span class="dot"></span> Encrypted · AES-256-GCM';
+                            setTimeout(cycle, 3000);
+                        }
+                    }, 60);
+                }, 2000);
+            }
+
+            // ECDH animation
+            function runEcdh() {
+                const nodes = ['ecdh-a', 'ecdh-mid', 'ecdh-b'];
+                const arrows = ['ecdh-arrow1', 'ecdh-arrow2'];
+                const bar = document.getElementById('ecdh-bar');
+                const status = document.getElementById('ecdh-status');
+                const mid = document.getElementById('ecdh-mid');
+
+                // Reset
+                nodes.forEach(id => { const el = document.getElementById(id); el.className = 'encrypt-demo-node'; });
+                arrows.forEach(id => { const el = document.getElementById(id); el.className = 'encrypt-demo-arrow'; });
+                bar.style.width = '0%';
+                status.className = 'encrypt-demo-status';
+                status.innerHTML = '<span class="dot"></span> Waiting';
+                mid.innerHTML = '<span class="node-label">ECDH</span>computing…';
+
+                const steps = [
+                    { delay: 500, fn() {
+                        document.getElementById('ecdh-a').classList.add('active');
+                        status.className = 'encrypt-demo-status encrypting';
+                        status.innerHTML = '<span class="dot"></span> Reading your key…';
+                        bar.style.width = '15%';
+                    }},
+                    { delay: 800, fn() {
+                        document.getElementById('ecdh-arrow1').classList.add('active');
+                        bar.style.width = '30%';
+                    }},
+                    { delay: 600, fn() {
+                        document.getElementById('ecdh-mid').classList.add('active');
+                        status.innerHTML = '<span class="dot"></span> Computing shared secret…';
+                        bar.style.width = '50%';
+                    }},
+                    { delay: 1000, fn() {
+                        document.getElementById('ecdh-arrow2').classList.add('active');
+                        document.getElementById('ecdh-b').classList.add('active');
+                        status.innerHTML = '<span class="dot"></span> Deriving AES key…';
+                        bar.style.width = '75%';
+                    }},
+                    { delay: 800, fn() {
+                        const secret = fakeCipher(16).replace(/\n/g,'');
+                        mid.innerHTML = '<span class="node-label">Shared secret</span>' + secret.slice(0,12) + '…';
+                        nodes.forEach(id => { const el = document.getElementById(id); el.classList.remove('active'); el.classList.add('done'); });
+                        arrows.forEach(id => { const el = document.getElementById(id); el.classList.remove('active'); el.classList.add('done'); });
+                        bar.style.width = '100%';
+                        status.className = 'encrypt-demo-status encrypted';
+                        status.innerHTML = '<span class="dot"></span> Key agreed · Ready to encrypt';
+                    }},
+                    { delay: 3500, fn() { if (activeDemo === 'ecdh') runEcdh(); }}
+                ];
+
+                let t = 0;
+                steps.forEach(s => { t += s.delay; setTimeout(() => { if (activeDemo === 'ecdh') s.fn(); }, t); });
+            }
+
+            // Wallet animation
+            function runWallet() {
+                const nodes = ['wallet-pass', 'wallet-scrypt', 'wallet-key'];
+                const arrows = ['wallet-arrow1', 'wallet-arrow2'];
+                const bar = document.getElementById('wallet-bar');
+                const status = document.getElementById('wallet-status');
+                const scryptEl = document.getElementById('wallet-scrypt');
+                const keyEl = document.getElementById('wallet-key');
+
+                // Reset
+                nodes.forEach(id => { const el = document.getElementById(id); el.className = 'encrypt-demo-node'; });
+                arrows.forEach(id => { const el = document.getElementById(id); el.className = 'encrypt-demo-arrow'; });
+                bar.style.width = '0%';
+                status.className = 'encrypt-demo-status';
+                status.innerHTML = '<span class="dot"></span> Waiting';
+                scryptEl.innerHTML = '<span class="node-label">scrypt</span>deriving…';
+                keyEl.innerHTML = '<span class="node-label">Private key</span>encrypted';
+
+                const steps = [
+                    { delay: 500, fn() {
+                        document.getElementById('wallet-pass').classList.add('active');
+                        status.className = 'encrypt-demo-status encrypting';
+                        status.innerHTML = '<span class="dot"></span> Reading passphrase…';
+                        bar.style.width = '15%';
+                    }},
+                    { delay: 700, fn() {
+                        document.getElementById('wallet-arrow1').classList.add('active');
+                        bar.style.width = '30%';
+                    }},
+                    { delay: 600, fn() {
+                        scryptEl.classList.add('active');
+                        status.innerHTML = '<span class="dot"></span> Deriving key with scrypt…';
+                        bar.style.width = '50%';
+                    }},
+                    { delay: 1200, fn() {
+                        document.getElementById('wallet-arrow2').classList.add('active');
+                        bar.style.width = '75%';
+                    }},
+                    { delay: 600, fn() {
+                        keyEl.classList.add('active');
+                        status.innerHTML = '<span class="dot"></span> Encrypting private key with AES…';
+                        bar.style.width = '90%';
+                    }},
+                    { delay: 800, fn() {
+                        const enc = fakeCipher(12).replace(/\n/g,'');
+                        keyEl.innerHTML = '<span class="node-label">Private key</span>' + enc.slice(0,10) + '…';
+                        nodes.forEach(id => { const el = document.getElementById(id); el.classList.remove('active'); el.classList.add('done'); });
+                        arrows.forEach(id => { const el = document.getElementById(id); el.classList.remove('active'); el.classList.add('done'); });
+                        bar.style.width = '100%';
+                        status.className = 'encrypt-demo-status encrypted';
+                        status.innerHTML = '<span class="dot"></span> Key secured · Stored locally';
+                    }},
+                    { delay: 3500, fn() { if (activeDemo === 'wallet') runWallet(); }}
+                ];
+
+                let t = 0;
+                steps.forEach(s => { t += s.delay; setTimeout(() => { if (activeDemo === 'wallet') s.fn(); }, t); });
+            }
+
+            // Start when visible
+            const demoEl = document.getElementById('encrypt-demo');
+            const demoObs = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    demoObs.unobserve(demoEl);
+                    cycle();
+                }
+            }, { threshold: 0.3 });
+            demoObs.observe(demoEl);
+        })();
     </script>
 </body>
 </html>
