@@ -145,7 +145,6 @@
             }
 
             .pillars-grid,
-            .manifesto-principles,
             .explore-cards {
                 grid-template-columns: 1fr;
             }
@@ -630,49 +629,9 @@
             line-height: 1.8;
         }
 
-        .manifesto-principles {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
-            border-radius: 1rem;
-            overflow: hidden;
-        }
-
-        .manifesto-principle {
-            background: var(--bg);
-            padding: 2.25rem 2rem;
-            text-align: center;
-            transition: background 0.3s;
-        }
-
-        .manifesto-principle:hover {
-            background: var(--surface);
-        }
-
-        .principle-label {
-            display: inline-block;
-            font-size: 0.8125rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--accent);
-            margin-bottom: 0.625rem;
-        }
-
-        .manifesto-principle p {
-            font-size: 0.875rem;
-            color: var(--text-2);
-            line-height: 1.6;
-        }
-
         /* ============================================
            PILLARS
            ============================================ */
-        .pillars {
-            padding: 4rem 0 8rem;
-        }
 
         .pillars-grid {
             display: grid;
@@ -699,10 +658,9 @@
             font-size: 0.625rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.12em;
             color: var(--accent);
-            margin-bottom: 1.5rem;
-            font-family: monospace;
+            margin-bottom: 1rem;
         }
 
         .pillar h3 {
@@ -2193,10 +2151,6 @@
                 text-align: center;
             }
 
-            .manifesto-principles {
-                grid-template-columns: 1fr;
-            }
-
             .explore-cards {
                 grid-template-columns: 1fr;
             }
@@ -2456,29 +2410,9 @@
                     Not leverage to be sold.
                 </p>
             </div>
-            <div class="manifesto-principles">
-                <div class="manifesto-principle reveal stagger-1">
-                    <span class="principle-label">No Permissions needed</span>
-                    <p>Your identity is an EVM wallet — unique, cryptographic, and impossible to forge.</p>
-                </div>
-                <div class="manifesto-principle reveal stagger-2">
-                    <span class="principle-label">No central servers</span>
-                    <p>Messages travel through a peer-to-peer network.</p>
-                </div>
-                <div class="manifesto-principle reveal stagger-3">
-                    <span class="principle-label">No middlemen</span>
-                    <p>No company between you and the people you talk to.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PILLARS -->
-    <section class="pillars">
-        <div class="container">
             <div class="pillars-grid reveal-scale">
                 <div class="pillar">
-                    <div class="pillar-num">01</div>
+                    <div class="pillar-num">No permissions needed</div>
                     <h3>Sovereignty</h3>
                     <p>
                         Your identity is an EVM account — something you generate 
@@ -2487,7 +2421,7 @@
                     </p>
                 </div>
                 <div class="pillar">
-                    <div class="pillar-num">02</div>
+                    <div class="pillar-num">No central servers</div>
                     <h3>Decentralization</h3>
                     <p>
                         Messages travel through the Streamr Network. Each channel 
@@ -2497,7 +2431,7 @@
                     </p>
                 </div>
                 <div class="pillar">
-                    <div class="pillar-num">03</div>
+                    <div class="pillar-num">No middlemen</div>
                     <h3>Transparency</h3>
                     <p>
                         Every line of code is open source. The encryption runs in your 
@@ -2506,10 +2440,10 @@
                     </p>
                 </div>
                 <div class="pillar">
-                    <div class="pillar-num">04</div>
+                    <div class="pillar-num">No hidden costs</div>
                     <h3>Free to Use</h3>
                     <p>
-                        Joining and chatting in channels is always free. A small fee 
+                        Joining and participating in channels is always free. A small fee 
                         in POL is paid whenever you interact with the blockchain — 
                         creating channels, first-time setting up a DM inbox, or managing 
                         on-chain access permissions.
@@ -2538,7 +2472,7 @@
                         </div>
                         <div class="own-point">
                             <div class="own-point-dot"></div>
-                            <p><strong>You hold the keys.</strong> Your channels are tied to your wallet. No one — including Pombo — can take them away or alter permissions.</p>
+                            <p><strong>You hold the keys.</strong> Your channels are tied to your account. No one — including Pombo — can take them away or alter permissions.</p>
                         </div>
                         <div class="own-point">
                             <div class="own-point-dot"></div>
@@ -3113,7 +3047,7 @@
                                 <span class="push-feature-icon">🌐</span>
                                 <div>
                                     <strong>Decentralized Relays</strong>
-                                    <span>Anyone can run a relay. The relay can't read messages, can't identify senders, and can't censor notifications.</span>
+                                    <span>Anyone can run a relay. The relay can't read messages and can't identify receivers</span>
                                 </div>
                             </div>
                         </div>
