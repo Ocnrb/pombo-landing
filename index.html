@@ -32,6 +32,39 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
 
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Pombo",
+        "url": "https://pombo.cc",
+        "applicationCategory": "CommunicationApplication",
+        "operatingSystem": "Web",
+        "description": "Decentralized encrypted messaging app. Own your channels, messages, and identity with zero central servers.",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "End-to-end encrypted messaging",
+            "Decentralized channels on Streamr Network",
+            "Ethereum wallet-based identity",
+            "No central servers",
+            "Direct messages to any Ethereum address",
+            "Push notifications",
+            "Full data ownership and export"
+        ],
+        "screenshot": "https://pombo.cc/favicon/og-banner.png",
+        "author": {
+            "@type": "Organization",
+            "name": "Pombo",
+            "url": "https://pombo.cc"
+        }
+    }
+    </script>
+
     <style>
         /* ============================================
            RESET & BASE
@@ -250,8 +283,16 @@
         }
 
         @keyframes orbit {
-            from { transform: rotate(0deg) translateX(140px) rotate(0deg); }
-            to   { transform: rotate(360deg) translateX(140px) rotate(-360deg); }
+            from { transform: rotate(0deg) translateX(198px) rotate(0deg); }
+            to   { transform: rotate(360deg) translateX(198px) rotate(-360deg); }
+        }
+        @keyframes orbit-md {
+            from { transform: rotate(0deg) translateX(134px) rotate(0deg); }
+            to   { transform: rotate(360deg) translateX(134px) rotate(-360deg); }
+        }
+        @keyframes orbit-sm {
+            from { transform: rotate(0deg) translateX(76px) rotate(0deg); }
+            to   { transform: rotate(360deg) translateX(76px) rotate(-360deg); }
         }
 
         @keyframes dotPulse {
@@ -465,43 +506,43 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 320px;
+            min-height: 440px;
             animation: fadeIn 1.2s ease-out 0.3s both;
         }
 
         .hero-orbit-ring {
             position: absolute;
-            width: 320px;
-            height: 320px;
+            width: 440px;
+            height: 440px;
             border-radius: 50%;
             border: 1px solid rgba(246,133,27,0.08);
         }
 
         .hero-orbit-ring:nth-child(2) {
-            width: 240px;
-            height: 240px;
+            width: 300px;
+            height: 300px;
             border-color: rgba(246,133,27,0.12);
         }
 
         .hero-orbit-ring:nth-child(3) {
-            width: 160px;
-            height: 160px;
+            width: 176px;
+            height: 176px;
             border-color: rgba(246,133,27,0.06);
         }
 
         .hero-logo-center {
             position: relative;
             z-index: 2;
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             animation: float 6s ease-in-out infinite;
             filter: drop-shadow(0 0 40px rgba(246,133,27,0.2));
         }
 
         .orbit-node {
             position: absolute;
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: 10px;
             background: var(--card);
             border: 1px solid var(--border-l);
@@ -516,11 +557,41 @@
         .orbit-node:nth-child(5) { animation-duration: 25s; animation-delay: -5s; }
         .orbit-node:nth-child(6) { animation-duration: 30s; animation-delay: -10s; }
         .orbit-node:nth-child(7) { animation-duration: 22s; animation-delay: -15s; }
+        .orbit-node:nth-child(8) { animation-duration: 28s; animation-delay: -3s; }
+
+        /* Outer ring avatar nodes: remove card bg/border, let avatar SVG fill */
+        .orbit-node:nth-child(5),
+        .orbit-node:nth-child(6),
+        .orbit-node:nth-child(7),
+        .orbit-node:nth-child(8) {
+            background: none;
+            border: none;
+            overflow: hidden;
+        }
+        .orbit-node:nth-child(5) svg,
+        .orbit-node:nth-child(6) svg,
+        .orbit-node:nth-child(7) svg,
+        .orbit-node:nth-child(8) svg { width: 100%; height: 100%; }
+
+        /* Middle ring nodes (chat bubbles) */
+        .orbit-node:nth-child(9)  { animation: orbit-md 18s linear -2s infinite; width: 40px; height: 40px; border-radius: 10px; }
+        .orbit-node:nth-child(10) { animation: orbit-md 24s linear -13s infinite; width: 40px; height: 40px; border-radius: 10px; }
+
+        /* Inner ring nodes (lock, ethereum, streamr) */
+        .orbit-node:nth-child(11) { animation: orbit-sm 14s linear -4s infinite; width: 34px; height: 34px; border-radius: 9px; opacity: 0.7; }
+        .orbit-node:nth-child(12) { animation: orbit-sm 19s linear -11s infinite; width: 34px; height: 34px; border-radius: 9px; opacity: 0.7; }
+        .orbit-node:nth-child(13) { animation: orbit-sm 16s linear -8s infinite; width: 34px; height: 34px; border-radius: 9px; opacity: 0.7; }
 
         .orbit-node svg {
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
         }
+
+        .orbit-node:nth-child(11) svg,
+        .orbit-node:nth-child(12) svg,
+        .orbit-node:nth-child(13) svg { width: 16px; height: 16px; }
+        .orbit-node:nth-child(9) svg,
+        .orbit-node:nth-child(10) svg { width: 18px; height: 18px; }
 
         .hero-stats {
             display: flex;
@@ -657,19 +728,11 @@
         }
 
         .pillar-num {
-            font-size: 0.625rem;
+            font-size: 1.125rem;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
+            letter-spacing: -0.01em;
             color: var(--accent);
             margin-bottom: 1rem;
-        }
-
-        .pillar h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.875rem;
         }
 
         .pillar p {
@@ -684,6 +747,93 @@
         .ownership {
             padding: 8rem 0;
             border-top: 1px solid var(--border);
+        }
+
+        .ownership-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .own-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.375rem;
+            margin-bottom: 3rem;
+            padding: 0.375rem;
+            background: var(--elevated);
+            border: 1px solid var(--border);
+            border-radius: 0.875rem;
+            max-width: 320px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .own-tab {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.25rem;
+            border-radius: 0.625rem;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--text-3);
+            background: transparent;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            white-space: nowrap;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .own-tab svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            transition: color 0.3s;
+        }
+
+        .own-tab:hover {
+            color: var(--text-2);
+            background: rgba(255,255,255,0.03);
+        }
+
+        .own-tab.active {
+            color: white;
+            background: rgba(246,133,27,0.1);
+            border-color: rgba(246,133,27,0.25);
+        }
+
+        .own-tab.active svg {
+            color: var(--accent);
+        }
+
+        .own-panels {
+            position: relative;
+            min-height: 300px;
+        }
+
+        .own-panel {
+            opacity: 0;
+            transform: translateY(12px);
+            visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                        visibility 0s 0.45s;
+        }
+
+        .own-panel.active {
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
+            position: relative;
+            transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                        visibility 0s 0s;
         }
 
         .ownership-layout {
@@ -1013,50 +1163,94 @@
         .dm-visual {
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            gap: 0.125rem;
+            background: #000000;
+            border-radius: 1rem;
+            padding: 1.25rem;
+            border: 1px solid var(--border);
         }
 
         .dm-bubble {
             max-width: 85%;
-            padding: 1rem 1.25rem;
-            border-radius: 1rem;
-            font-size: 0.875rem;
-            line-height: 1.55;
+            padding: 0.2rem 0.7rem;
+            font-size: 0.95rem;
+            line-height: 1.4;
             position: relative;
         }
 
         .dm-bubble.sent {
             align-self: flex-end;
             background: #272a2e;
-            color: var(--text-1);
-            border-bottom-right-radius: 0.25rem;
+            color: #f0f0f0;
+            border-radius: 1rem 1rem 0.25rem 1rem;
         }
 
         .dm-bubble.received {
             align-self: flex-start;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            color: var(--text-1);
-            border-bottom-left-radius: 0.25rem;
+            background: #1e1e1e;
+            color: #d1d5db;
+            border-radius: 1rem 1rem 1rem 0.25rem;
         }
 
-        .dm-bubble-addr {
-            font-size: 0.625rem;
-            font-family: monospace;
-            color: var(--text-3);
-            margin-bottom: 0.375rem;
-        }
-
-        .dm-bubble-lock {
+        .dm-bubble.sent::after {
+            content: '';
             position: absolute;
-            bottom: 0.5rem;
-            right: 0.75rem;
-            color: var(--text-3);
+            bottom: 0;
+            right: -6px;
+            width: 12px;
+            height: 12px;
+            background: #272a2e;
+            clip-path: polygon(0 0, 0 100%, 100% 100%);
         }
 
-        .dm-bubble-lock svg {
-            width: 10px;
-            height: 10px;
+        .dm-bubble.received::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -6px;
+            width: 12px;
+            height: 12px;
+            background: #1e1e1e;
+            clip-path: polygon(100% 0, 100% 100%, 0 100%);
+        }
+
+        .dm-bubble + .dm-bubble.received,
+        .dm-bubble + .dm-bubble.sent {
+            margin-top: 0.875rem;
+        }
+        .dm-bubble.sent + .dm-bubble.sent,
+        .dm-bubble.received + .dm-bubble.received {
+            margin-top: 0.125rem;
+        }
+
+        .dm-bubble-sender {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-bottom: 0.125rem;
+        }
+
+        .dm-bubble-sender .badge {
+            flex-shrink: 0;
+        }
+
+        .dm-bubble-sender .badge-green { color: #34d399; }
+        .dm-bubble-sender .badge-purple { color: #6C5DD3; }
+
+        .dm-bubble-footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.125rem;
+        }
+
+        .dm-bubble-time {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+            flex-shrink: 0;
         }
 
         /* ============================================
@@ -1737,27 +1931,28 @@
             font-family: 'Inter', sans-serif;
             font-size: 0.875rem;
             line-height: 1.55;
-            color: #f0f0f0;
-            background: #272a2e;
-            padding: 0.625rem 1rem;
-            border-radius: 1rem 1rem 0.25rem 1rem;
-            align-self: flex-end;
-            max-width: 85%;
+            color: var(--text-1);
+            background: transparent;
+            padding: 0.625rem 0;
+            align-self: stretch;
+            text-align: center;
+            min-height: 3rem;
             display: flex;
             align-items: center;
-            transition: opacity 0.4s, background 0.4s, border-radius 0.4s;
+            justify-content: center;
+            transition: color 0.4s, opacity 0.4s;
         }
 
         .encrypt-demo-msg.cipher {
             font-family: 'SF Mono', 'Fira Code', monospace;
             font-size: 0.7rem;
             color: var(--accent);
-            background: rgba(246,133,27,0.08);
-            border: 1px solid rgba(246,133,27,0.15);
+            background: rgba(246,133,27,0.06);
+            border: 1px solid rgba(246,133,27,0.12);
             border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
             word-break: break-all;
             opacity: 0.9;
-            align-self: flex-end;
         }
 
         .encrypt-demo-bar {
@@ -1893,6 +2088,255 @@
 
         .encrypt-demo-arrow.active { color: var(--accent); }
         .encrypt-demo-arrow.done { color: #34d399; }
+
+        /* ============================================
+           UNDER THE HOOD (TABBED)
+           ============================================ */
+        .hood {
+            padding: 8rem 0;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hood-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .hood-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.375rem;
+            margin-bottom: 3rem;
+            padding: 0.375rem;
+            background: var(--elevated);
+            border: 1px solid var(--border);
+            border-radius: 0.875rem;
+            max-width: 620px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hood-tab {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.25rem;
+            border-radius: 0.625rem;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--text-3);
+            background: transparent;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            white-space: nowrap;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .hood-tab svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            transition: color 0.3s;
+        }
+
+        .hood-tab:hover {
+            color: var(--text-2);
+            background: rgba(255,255,255,0.03);
+        }
+
+        .hood-tab.active {
+            color: white;
+            background: rgba(246,133,27,0.1);
+            border-color: rgba(246,133,27,0.25);
+        }
+
+        .hood-tab.active svg {
+            color: var(--accent);
+        }
+
+        .hood-panels {
+            position: relative;
+            min-height: 400px;
+        }
+
+        .hood-panel {
+            opacity: 0;
+            transform: translateY(12px);
+            visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                        visibility 0s 0.45s;
+        }
+
+        .hood-panel.active {
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
+            position: relative;
+            transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                        visibility 0s 0s;
+        }
+
+        /* Hood panel layouts */
+        .hood-two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .hood-panel-desc {
+            font-size: 1rem;
+            color: var(--text-2);
+            line-height: 1.75;
+            margin-bottom: 1.5rem;
+        }
+
+        .hood-panel-subdesc {
+            font-size: 0.875rem;
+            color: var(--text-2);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        /* Push feature items (replaces emoji-based ones) */
+        .push-feature-svg-icon {
+            width: 2.25rem;
+            height: 2.25rem;
+            border-radius: 0.5rem;
+            background: rgba(246,133,27,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--accent);
+        }
+
+        .push-feature-svg-icon svg {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .push-feature-new {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .push-feature-new strong {
+            display: block;
+            font-size: 0.875rem;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .push-feature-new span {
+            font-size: 0.8125rem;
+            color: var(--text-2);
+            line-height: 1.55;
+        }
+
+        .push-features-new {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        /* Push flow vertical */
+        .push-flow-v {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            max-width: 320px;
+        }
+
+        .push-flow-v-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .push-flow-v-node {
+            background: var(--elevated);
+            border: 1px solid var(--border-l);
+            border-radius: 0.75rem;
+            padding: 0.875rem 1.25rem;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: white;
+            text-align: center;
+            width: 100%;
+        }
+
+        .push-flow-v-accent {
+            border-color: rgba(246,133,27,0.3);
+            background: rgba(246,133,27,0.08);
+            color: var(--accent);
+        }
+
+        .push-flow-v-success {
+            border-color: rgba(52,211,153,0.3);
+            background: rgba(52,211,153,0.06);
+            color: #34d399;
+        }
+
+        .push-flow-v-detail {
+            display: block;
+            font-size: 0.6875rem;
+            font-weight: 400;
+            color: var(--text-3);
+            margin-top: 0.25rem;
+        }
+
+        .push-flow-v-arrow {
+            color: var(--text-3);
+            display: flex;
+            justify-content: center;
+            padding: 0.375rem 0;
+        }
+
+        .push-flow-v-arrow svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        @media (max-width: 1023px) {
+            .hood-two-col {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .hood-tabs {
+                max-width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .hood-tab {
+                padding: 0.5rem 1rem;
+                font-size: 0.75rem;
+            }
+            .push-flow-v {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .hood-tabs {
+                flex-wrap: wrap;
+            }
+            .hood-tab {
+                flex: 0 0 calc(50% - 0.25rem);
+            }
+            .hood-tab span { display: none; }
+        }
 
         /* ============================================
            COMPARISON TABLE
@@ -2332,10 +2776,11 @@
                 <span>Pombo</span>
             </a>
             <ul class="nav-links" id="nav-links">
-                <li><a href="#manifesto">Manifesto</a></li>
-                <li><a href="#explore">Channels</a></li>
-                <li><a href="#architecture">How it works</a></li>
-                <li><a href="#security">Security</a></li>
+                <li><a href="#manifesto">Principles</a></li>
+                <li><a href="#ownership">Ownership</a></li>
+                <li><a href="#explore">Explore</a></li>
+                <li><a href="#hood">How it works</a></li>
+                <li><a href="#why-pombo">Why Pombo</a></li>
             </ul>
             <a href="https://app.pombo.cc" class="btn-launch">Open App</a>
             <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
@@ -2352,7 +2797,7 @@
                 <h1>Your conversations<br>belong to <em>you</em>.</h1>
                 <p class="hero-sub">
                     Pombo is an open-source gateway to decentralized communications — 
-                    group channels, communities, and private direct messages. No central servers, no sign-ups, no one reading your data.
+                    group chats, communities, and private direct messages. No central servers, no sign-ups, no one reading your data.
                 </p>
                 <div class="hero-actions">
                     <a href="https://app.pombo.cc" class="btn-hero primary">
@@ -2374,8 +2819,8 @@
                         <span class="hero-stat-label">Real-time Data</span>
                     </div>
                     <div class="hero-stat">
-                        <span class="hero-stat-value">0</span>
-                        <span class="hero-stat-label">Central Servers</span>
+                        <span class="hero-stat-value">Complete</span>
+                        <span class="hero-stat-label">Privacy</span>
                     </div>                    
                 </div>
             </div>
@@ -2384,14 +2829,35 @@
                 <div class="hero-orbit-ring"></div>
                 <div class="hero-orbit-ring"></div>
                 <img src="favicon/favicon.svg" alt="Pombo" class="hero-logo-center">
-                <div class="orbit-node" title="Peer Node">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0"/></svg>
+                <!-- Exterior ring: native avatars -->
+                <div class="orbit-node" title="User">
+                    <svg viewBox="0 0 40 40"><defs><clipPath id="av-orb-1"><rect width="40" height="40" rx="10"/></clipPath></defs><g clip-path="url(#av-orb-1)"><rect width="40" height="40" fill="#163129"/><g transform="rotate(348 20 20)"><path d="M33.90,19.25 C34.02,20.20 34.69,22.89 34.72,23.92 C34.74,24.95 34.89,28.61 34.13,29.15 C33.37,29.69 28.57,29.28 27.40,29.11 C26.24,28.95 23.63,27.28 22.93,27.60 C22.23,27.92 21.35,31.50 20.66,32.18 C19.96,32.85 17.10,34.16 16.24,34.11 C15.39,34.05 13.39,32.04 12.47,31.64 C11.54,31.24 8.14,30.86 7.39,30.24 C6.64,29.62 4.95,26.70 5.25,25.68 C5.56,24.67 9.67,21.35 10.31,20.52 C10.95,19.69 11.55,18.53 11.37,17.70 C11.18,16.87 8.59,13.50 8.55,12.59 C8.51,11.67 10.34,9.53 10.99,8.91 C11.65,8.29 14.00,7.24 14.85,6.63 C15.69,6.03 18.18,3.12 19.09,3.11 C20.00,3.09 23.03,5.48 23.60,6.50 C24.17,7.53 24.09,12.23 24.56,12.95 C25.04,13.67 27.19,13.22 28.12,13.41 C29.05,13.60 32.89,14.19 33.49,14.80 C34.09,15.41 33.77,18.30 33.90,19.25 M19.65,25.23 C19.60,24.87 20.51,23.27 20.47,22.94 C20.42,22.61 19.53,22.32 19.24,22.04 C18.95,21.77 17.63,20.55 17.69,20.27 C17.74,19.99 19.37,19.46 19.76,19.36 C20.15,19.26 21.22,19.54 21.43,19.29 C21.64,19.04 21.59,17.29 21.81,16.98 C22.02,16.67 23.24,16.14 23.52,16.32 C23.80,16.50 24.24,18.41 24.45,18.70 C24.66,19.00 25.17,19.10 25.55,19.16 C25.93,19.21 27.87,19.04 28.09,19.25 C28.31,19.46 27.89,20.86 27.66,21.18 C27.43,21.51 25.99,22.04 25.90,22.34 C25.80,22.65 26.72,23.72 26.77,24.11 C26.82,24.51 26.66,26.05 26.39,26.16 C26.11,26.26 24.48,25.27 24.12,25.12 C23.75,24.98 23.23,24.62 22.90,24.76 C22.58,24.90 21.32,26.38 20.99,26.43 C20.65,26.48 19.70,25.59 19.65,25.23" fill="#93c362"/></g><g transform="rotate(-11.0 20 20)" opacity="1"><circle cx="13.73" cy="15.11" r="2.61" fill="#163129" opacity="1"/><circle cx="13.73" cy="15.11" r="0.91" fill="#1a1a24" opacity="1"/><circle cx="24.43" cy="15.81" r="2.21" fill="#163129" opacity="1"/><circle cx="24.43" cy="15.81" r="0.62" fill="#1a1a24" opacity="1"/><path d="M13.88 22.95 Q19.61 30.30 25.34 22.86" fill="none" stroke="#163129" stroke-width="1.68" stroke-linecap="round" opacity="1"/></g><path d="M0,0 h40 v40 h-40 Z M2.4,2.4 v35.2 h35.2 v-35.2 Z" fill="#163129" fill-rule="evenodd"/></g></svg>
                 </div>
-                <div class="orbit-node" title="Encrypted Message">
+                <div class="orbit-node" title="User">
+                    <svg viewBox="0 0 40 40"><defs><clipPath id="av-orb-2"><rect width="40" height="40" rx="10"/></clipPath></defs><g clip-path="url(#av-orb-2)"><rect width="40" height="40" fill="#321118"/><g transform="rotate(83 20 20)"><path d="M10.01,6.29 C11.07,6.09 14.97,7.78 16.01,7.77 C17.04,7.75 18.87,7.05 19.98,6.17 C21.10,5.28 25.44,-0.44 26.71,-0.76 C27.99,-1.07 31.89,1.73 32.20,3.16 C32.51,4.59 29.69,11.61 29.68,12.95 C29.66,14.30 31.07,15.34 32.03,16.07 C33.00,16.80 38.34,18.96 38.95,19.97 C39.57,20.99 38.45,24.73 37.95,25.80 C37.45,26.88 35.00,29.44 34.17,30.27 C33.34,31.09 31.05,33.50 29.99,33.71 C28.93,33.91 25.03,32.22 23.99,32.23 C22.96,32.25 21.13,32.95 20.02,33.83 C18.90,34.72 14.56,40.44 13.29,40.76 C12.01,41.07 8.11,38.27 7.80,36.84 C7.49,35.41 10.31,28.39 10.32,27.05 C10.34,25.70 8.93,24.66 7.97,23.93 C7.00,23.20 1.66,21.04 1.05,20.03 C0.43,19.01 1.55,15.27 2.05,14.20 C2.55,13.12 5.00,10.56 5.83,9.73 C6.66,8.91 8.95,6.50 10.01,6.29 M19.70,17.92 C19.94,17.72 21.46,18.04 21.84,18.21 C22.21,18.38 22.99,19.54 23.29,19.57 C23.59,19.61 24.30,18.70 24.69,18.53 C25.07,18.37 26.71,17.84 26.97,18.00 C27.23,18.17 27.29,19.70 27.21,20.09 C27.13,20.49 26.25,21.51 26.23,21.82 C26.21,22.13 26.90,22.71 27.04,23.03 C27.18,23.35 27.67,24.60 27.58,24.90 C27.49,25.20 26.47,25.77 26.15,25.88 C25.83,25.99 24.82,25.94 24.51,25.97 C24.20,26.00 23.46,26.17 23.18,26.18 C22.89,26.19 22.09,26.12 21.79,26.07 C21.49,26.02 20.58,25.84 20.28,25.70 C19.99,25.55 19.05,24.97 18.94,24.68 C18.83,24.39 19.10,23.24 19.23,22.93 C19.36,22.62 20.14,21.99 20.17,21.70 C20.21,21.40 19.62,20.48 19.57,20.09 C19.53,19.69 19.47,18.12 19.70,17.92" fill="#b1396f"/></g><ellipse cx="15.99" cy="14.53" rx="1.73" ry="2.48" fill="#321118" opacity="1"/><ellipse cx="25.61" cy="15.19" rx="1.77" ry="2.53" fill="#321118" opacity="1"/><path d="M12.90 21.38 L12.90 26.64 Q20.77 30.13 28.63 26.01 L28.63 22.09 Z" fill="#321118" opacity="0.9"/><path d="M0,0 h40 v40 h-40 Z M2.4,2.4 v35.2 h35.2 v-35.2 Z" fill="#321118" fill-rule="evenodd"/></g></svg>
+                </div>
+                <div class="orbit-node" title="User">
+                    <svg viewBox="0 0 40 40"><defs><clipPath id="av-orb-3"><rect width="40" height="40" rx="10"/></clipPath></defs><g clip-path="url(#av-orb-3)"><rect width="40" height="40" fill="#2c3517"/><g transform="rotate(174 20 20)"><path d="M5.18,30.59 C4.89,29.27 4.40,26.10 4.22,24.99 C4.04,23.87 3.22,20.85 3.47,19.87 C3.72,18.88 5.96,16.32 6.58,15.52 C7.19,14.72 9.10,13.26 9.38,12.15 C9.66,11.05 8.89,6.50 9.25,4.95 C9.61,3.40 11.68,-2.13 12.82,-2.73 C13.95,-3.33 18.97,-1.81 20.17,-0.79 C21.37,0.22 23.59,5.88 24.34,7.00 C25.09,8.13 26.47,9.62 27.39,9.99 C28.32,10.36 32.19,10.09 33.20,10.57 C34.21,11.05 36.57,13.61 37.06,14.61 C37.55,15.60 37.68,18.91 37.91,20.14 C38.14,21.37 39.33,25.12 39.24,26.42 C39.16,27.72 38.12,31.94 37.08,32.62 C36.04,33.30 30.71,33.24 29.27,32.97 C27.82,32.71 24.17,30.04 23.20,30.11 C22.22,30.18 20.91,32.65 19.89,33.65 C18.87,34.64 14.78,39.25 13.43,39.67 C12.08,40.09 7.79,38.64 6.93,37.69 C6.07,36.75 5.46,31.91 5.18,30.59 M27.75,17.62 C27.89,17.98 28.50,19.29 28.39,19.62 C28.29,19.95 27.15,20.71 26.76,20.79 C26.36,20.87 24.93,20.28 24.61,20.35 C24.28,20.43 23.91,21.21 23.61,21.53 C23.31,21.86 22.07,23.43 21.71,23.48 C21.35,23.52 20.28,22.38 20.16,21.95 C20.03,21.52 20.61,19.69 20.53,19.34 C20.44,18.99 19.70,18.79 19.34,18.56 C18.99,18.33 17.23,17.46 17.09,17.11 C16.96,16.77 17.68,15.52 18.02,15.28 C18.35,15.04 19.96,14.98 20.30,14.83 C20.63,14.68 21.01,14.08 21.23,13.82 C21.45,13.55 22.11,12.45 22.42,12.29 C22.74,12.14 23.88,12.22 24.22,12.33 C24.56,12.44 25.42,13.12 25.67,13.36 C25.92,13.61 26.49,14.40 26.63,14.69 C26.76,14.99 26.87,15.87 26.99,16.18 C27.11,16.48 27.60,17.26 27.75,17.62" fill="#c78b6e"/></g><line x1="11.46" y1="15.19" x2="16.41" y2="15.43" stroke="#2c3517" stroke-width="1.94" stroke-linecap="round" opacity="1"/><line x1="21.83" y1="15.24" x2="27.79" y2="15.44" stroke="#2c3517" stroke-width="2.08" stroke-linecap="round" opacity="1"/><path d="M13.92 22.98 Q19.57 29.03 25.22 22.52" fill="none" stroke="#2c3517" stroke-width="1.68" stroke-linecap="round" opacity="1"/><path d="M0,0 h40 v40 h-40 Z M2.4,2.4 v35.2 h35.2 v-35.2 Z" fill="#2c3517" fill-rule="evenodd"/></g></svg>
+                </div>
+                <div class="orbit-node" title="User">
+                    <svg viewBox="0 0 40 40"><defs><clipPath id="av-orb-4"><rect width="40" height="40" rx="10"/></clipPath></defs><g clip-path="url(#av-orb-4)"><rect width="40" height="40" fill="#272410"/><g transform="rotate(230 20 20)"><path d="M4.74,8.62 C6.17,8.37 12.35,11.07 13.48,10.79 C14.61,10.50 14.92,6.70 15.62,5.92 C16.32,5.14 19.19,3.50 20.21,3.30 C21.23,3.09 23.99,4.18 25.43,3.96 C26.87,3.75 32.91,0.71 34.03,1.19 C35.16,1.66 36.30,6.99 36.22,8.52 C36.14,10.05 33.28,14.66 33.25,15.88 C33.21,17.10 35.96,19.33 35.87,20.20 C35.78,21.07 32.72,23.25 32.35,24.19 C31.98,25.12 32.24,27.68 32.35,29.21 C32.45,30.74 34.05,37.90 33.37,38.90 C32.69,39.90 27.26,38.92 25.85,38.80 C24.43,38.68 20.97,37.96 19.78,37.73 C18.58,37.50 15.04,37.51 14.38,36.58 C13.72,35.65 14.09,29.64 13.44,28.79 C12.79,27.94 9.47,28.69 8.11,28.41 C6.74,28.14 1.05,27.01 0.36,26.11 C-0.34,25.21 1.50,21.12 1.43,19.77 C1.37,18.41 -0.61,14.29 -0.27,13.13 C0.08,11.97 3.31,8.86 4.74,8.62 M27.63,20.42 C27.64,20.77 27.20,21.95 26.87,22.04 C26.53,22.12 24.79,21.23 24.44,21.21 C24.09,21.19 23.74,21.61 23.47,21.87 C23.20,22.13 22.16,23.62 21.86,23.67 C21.55,23.73 20.71,22.70 20.51,22.40 C20.31,22.10 20.09,21.10 19.96,20.81 C19.84,20.52 19.41,19.89 19.34,19.62 C19.28,19.36 19.43,18.62 19.34,18.30 C19.25,17.98 18.47,16.90 18.46,16.55 C18.45,16.20 18.89,15.01 19.23,14.93 C19.56,14.85 21.30,15.74 21.65,15.76 C22.01,15.78 22.36,15.36 22.62,15.10 C22.89,14.84 23.93,13.35 24.24,13.30 C24.54,13.24 25.38,14.27 25.58,14.57 C25.78,14.87 26.01,15.87 26.13,16.15 C26.25,16.44 26.69,17.08 26.75,17.35 C26.82,17.61 26.66,18.35 26.75,18.67 C26.84,18.99 27.62,20.07 27.63,20.42" fill="#c5b077"/></g><path d="M12.68 14.97 Q15.06 12.89 17.43 15.16" fill="none" stroke="#272410" stroke-width="1.51" stroke-linecap="round" opacity="1"/><path d="M24.19 15.71 Q26.40 12.21 28.61 15.54" fill="none" stroke="#272410" stroke-width="1.46" stroke-linecap="round" opacity="1"/><path d="M15.62 22.77 Q20.13 25.39 24.64 22.52" fill="none" stroke="#272410" stroke-width="1.44" stroke-linecap="round" opacity="1"/><path d="M0,0 h40 v40 h-40 Z M2.4,2.4 v35.2 h35.2 v-35.2 Z" fill="#272410" fill-rule="evenodd"/></g></svg>
+                </div>
+                <!-- Middle ring: chat bubbles -->
+                <div class="orbit-node" title="Message">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 011.037-.443 48.282 48.282 0 005.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/></svg>
+                </div>
+                <div class="orbit-node" title="Message">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 011.037-.443 48.282 48.282 0 005.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/></svg>
+                </div>
+                <!-- Inner ring: lock, ethereum, streamr -->
+                <div class="orbit-node" title="Encryption">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
                 </div>
-                <div class="orbit-node" title="Blockchain">
+                <div class="orbit-node" title="Ethereum">
                     <svg viewBox="0 0 320 512" fill="currentColor"><path d="M311.9 260.8L160 353.6 8 260.8 160 0l151.9 260.8zM160 383.4L8 290.6 160 512l152-221.4-152 92.8z"/></svg>
+                </div>
+                <div class="orbit-node" title="Streamr">
+                    <svg viewBox="0 0 56 56" fill="none"><path d="M35.0047 1.4C35.0047 1.4 35.0049 1.26403 35.0051 0.993673C35.0054 0.723317 34.8953 0.464565 34.7003 0.277179C34.5053 0.0897938 34.2423-0.0100187 33.972 0.000795574C23.108 0.537804 14.4471 9.26736 14.0013 20.1297C14.0001 20.3653 14.0959 20.591 14.2663 20.7537C14.4367 20.9165 14.6666 21.002 14.902 20.9902H16.5577C17.0688 20.9948 17.4945 20.5998 17.5279 20.09C17.997 11.1376 25.1539 3.98441 34.1111 3.51558C34.7932 3.42953 35.0047 3.05555 35.0047 2.60213C35.0047 2.14872 35.0047 1.4 35.0047 1.4ZM20.7667 21.007C21.1765 21.007 21.3129 21.0053 21.8161 21.0068C22.3192 21.0082 22.7382 20.6212 22.7764 20.1198C23.2113 14.0186 28.084 9.17399 34.1906 8.77121C34.6703 8.73759 35.0336 8.32432 35.0051 7.84452V6.24599C34.9992 5.97788 34.885 5.72356 34.6886 5.54091C34.4921 5.35826 34.2301 5.26281 33.9621 5.27628C26.0735 5.79808 19.7902 12.0766 19.2663 19.9609C19.2529 20.2288 19.3484 20.4907 19.5311 20.687C19.7138 20.8834 19.9683 21.0011 20.2366 21.007C20.5048 21.0129 20.5596 21.007 20.7667 21.007ZM35.0052 11.5182V13.1233C35.0007 13.6032 34.6353 14.0027 34.1574 14.05C30.9682 14.4403 28.4523 16.9468 28.0513 20.133C27.9905 20.6231 27.5785 20.994 27.0844 21.0035H25.697C24.942 21.0035 24.4883 20.5136 24.5446 19.9477C25.048 14.9787 28.9803 11.0499 33.9521 10.5485C34.2235 10.5252 34.4921 10.6171 34.6924 10.8015C34.8926 10.9859 35.0061 11.246 35.0052 11.5182ZM53.4096 34.9666C52.9559 34.9666 52.5818 34.7482 52.4957 34.0664C52.0324 25.1028 44.8643 17.94 35.8959 17.4787C35.3859 17.4454 34.9906 17.0199 34.9952 16.509V14.8542C34.9834 14.619 35.0689 14.3892 35.2318 14.2189C35.3947 14.0486 35.6205 13.9528 35.8562 13.954C46.7256 14.3979 55.4616 23.0547 55.9991 33.9142C56.0107 34.1814 55.9139 34.4421 55.7307 34.6371C55.5474 34.8321 55.2932 34.945 55.0255 34.9501L53.4096 34.9666ZM35.0051 20.2092C35.011 19.9404 35.1257 19.6856 35.3229 19.5028C35.5201 19.3201 35.783 19.225 36.0515 19.2394C43.9377 19.7626 50.2187 26.0389 50.744 33.9208C50.7584 34.1892 50.6633 34.452 50.4804 34.6491C50.2976 34.8461 50.0426 34.9607 49.7737 34.9666H48.1744C47.6907 34.9949 47.2756 34.6259 47.2472 34.1425C46.8412 28.0429 41.9966 23.1769 35.8959 22.741C35.3942 22.7028 35.007 22.2841 35.0085 21.7812L35.0051 20.2092ZM44.1 34.9673C44.1 34.9673 43.3663 34.9718 42.8861 34.9673C42.406 34.9629 42.0063 34.5936 41.959 34.1161C41.5681 30.9274 39.0586 28.4125 35.8694 28.0132C35.379 27.9523 35.0079 27.5405 34.9985 27.0468V25.4846C34.9975 25.2118 35.1114 24.9512 35.3124 24.7666C35.5135 24.5821 35.783 24.4907 36.0548 24.5149C41.0267 25.0163 44.959 28.9452 45.4624 33.9142C45.4856 34.1854 45.3937 34.4538 45.2092 34.654C45.0247 34.8542 44.7645 34.9676 44.4921 34.9666L44.1 34.9673ZM2.58048 21.0001C3.03413 21.0001 3.40831 21.2186 3.49441 21.9004C3.95814 30.8675 11.1318 38.0317 20.1041 38.488C20.6141 38.5214 21.0094 38.9469 21.0048 39.4577V41.1125C21.0166 41.3478 20.9311 41.5776 20.7682 41.7479C20.6053 41.9181 20.3795 42.0139 20.1438 42.0127C9.27444 41.5688 0.538365 32.912 0.000942009 22.0526C-0.0107061 21.7853 0.0860639 21.5246 0.269329 21.3296C0.452594 21.1346 0.706843 21.0218 0.974477 21.0167L2.58048 21.0001ZM20.9949 35.7444C20.989 36.0131 20.8743 36.2679 20.6771 36.4507C20.4799 36.6334 20.217 36.7285 19.9485 36.7141C12.0671 36.1899 5.78918 29.9195 5.25935 22.0427C5.24495 21.7743 5.34003 21.5115 5.52288 21.3144C5.70573 21.1173 5.96072 21.0027 6.22958 20.9968H7.82896C8.31265 20.9686 8.7277 21.3375 8.75613 21.8209C9.16031 27.9206 14.0035 32.7881 20.1041 33.2258C20.6058 33.2639 20.993 33.6827 20.9915 34.1856L20.9949 35.7444ZM11.4946 21.0001H13.1006C13.5808 21.0046 13.9805 21.3698 14.0278 21.8474C14.4187 25.036 16.9281 27.551 20.1173 27.9503C20.6077 28.0111 20.9788 28.4229 20.9882 28.9167V30.4821C20.9864 30.7519 20.8721 31.0088 20.6729 31.1909C20.4737 31.3731 20.2076 31.464 19.9385 31.4419C14.9667 30.9405 11.0344 27.0117 10.531 22.0427C10.5108 21.7743 10.6031 21.5095 10.7858 21.3118C10.9686 21.1141 11.2253 21.0012 11.4946 21.0001ZM20.9915 53.411C20.9915 52.9575 21.2101 52.5836 21.8922 52.4975C30.8607 52.0363 38.0287 44.8734 38.492 35.9098C38.5253 35.4001 38.9511 35.005 39.4622 35.0096H41.1179C41.3533 34.9978 41.5832 35.0833 41.7536 35.2461C41.9239 35.4089 42.0198 35.6346 42.0186 35.8701C41.5727 46.7337 32.9098 55.4637 22.0446 55.9991C21.7771 56.0107 21.5163 55.914 21.3212 55.7308C21.1261 55.5476 21.0132 55.2935 21.0081 55.026L20.9915 53.411ZM35.7568 35.0063C36.0257 35.0122 36.2807 35.1268 36.4635 35.3239C36.6464 35.521 36.7415 35.7838 36.727 36.0522C36.2018 43.934 29.9208 50.2103 22.0346 50.7335C21.7661 50.7479 21.5032 50.6529 21.306 50.4701C21.1088 50.2874 20.9941 50.0325 20.9882 49.7638V48.1653C20.96 47.6818 21.3291 47.267 21.8128 47.2386C27.9157 46.8346 32.7857 41.994 33.2236 35.8966C33.2618 35.3952 33.6808 35.0082 34.1839 35.0096L35.7568 35.0063ZM20.9982 44.4916V42.8865C21.0026 42.4066 21.368 42.0071 21.8459 41.9598C25.0351 41.5694 27.551 39.063 27.952 35.8768C28.0128 35.3866 28.4249 35.0157 28.9189 35.0063H30.3064C31.0613 35.0063 31.515 35.4961 31.4587 36.0621C30.9553 41.0311 27.023 44.9599 22.0512 45.4613C21.7798 45.4846 21.5112 45.3927 21.311 45.2083C21.1107 45.0239 20.9972 44.7638 20.9982 44.4916Z" fill="currentColor"/></svg>
                 </div>
             </div>
         </div>
@@ -2415,41 +2881,19 @@
             <div class="pillars-grid reveal-scale">
                 <div class="pillar">
                     <div class="pillar-num">No permissions needed</div>
-                    <h3>Sovereignty</h3>
-                    <p>
-                        Your identity is an EVM account — something you generate 
-                        and control. No email, no phone number, no company database 
-                        storing who you are.
-                    </p>
+                    <p>Generate an account in your browser. No email, no phone, no sign-up.</p>
                 </div>
                 <div class="pillar">
                     <div class="pillar-num">No central servers</div>
-                    <h3>Decentralization</h3>
-                    <p>
-                        Messages travel through the Streamr Network. Each channel 
-                        forms its own peer-to-peer overlay — a constellation of the 
-                        nodes participating in the conversation. There is no central 
-                        server to hack, censor, or shut down.
-                    </p>
+                    <p>Messages travel peer-to-peer. There is nothing to hack, censor, or shut down.</p>
                 </div>
                 <div class="pillar">
                     <div class="pillar-num">No middlemen</div>
-                    <h3>Transparency</h3>
-                    <p>
-                        Every line of code is open source. The encryption runs in your 
-                        browser using standard Web APIs. Nothing is hidden, 
-                        everything is verifiable.
-                    </p>
+                    <p>Fully open source. Encryption runs in your browser. Everything is verifiable.</p>
                 </div>
                 <div class="pillar">
                     <div class="pillar-num">No hidden costs</div>
-                    <h3>Free to Use</h3>
-                    <p>
-                        Joining and participating in channels is always free. A small fee 
-                        in POL is paid whenever you interact with the blockchain — 
-                        creating channels, first-time setting up a DM inbox, or managing 
-                        on-chain access permissions.
-                    </p>
+                    <p>Joining channels is always free. A small network fee applies only for on-chain actions (Polygon POS).</p>
                 </div>
             </div>
         </div>
@@ -2458,75 +2902,161 @@
     <!-- OWNERSHIP -->
     <section class="ownership" id="ownership">
         <div class="container">
-            <div class="ownership-layout">
-                <div class="reveal">
-                    <div class="own-label">Ownership</div>
-                    <h2 class="own-title">Channels belong to their creators.</h2>
-                    <p class="own-desc">
-                        When you create a channel in Pombo, you're creating a smart contract 
-                        on the Polygon blockchain. Your account holds the on-chain ownership and permissions. Pombo is just the 
-                        interface; the channel is yours.
-                    </p>
-                    <div class="own-points">
-                        <div class="own-point">
-                            <div class="own-point-dot"></div>
-                            <p><strong>You set the rules.</strong> Choose who can join, whether messages are encrypted, and how long history is stored.</p>
-                        </div>
-                        <div class="own-point">
-                            <div class="own-point-dot"></div>
-                            <p><strong>You hold the keys.</strong> Your channels are tied to your account. No one — including Pombo — can take them away or alter permissions.</p>
-                        </div>
-                        <div class="own-point">
-                            <div class="own-point-dot"></div>
-                            <p><strong>Pombo is a gateway.</strong> If Pombo disappears tomorrow, your channels still exist on the network. Any compatible client can access them.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="own-visual reveal stagger-2">
-                    <div class="own-card">
-                        <div class="own-card-header">
-                            <div class="own-card-dot"></div>
-                            <span class="own-card-name">#design-guild</span>
-                            <span class="own-card-tag">0x7a2…f41</span>
-                        </div>
-                        <div class="own-card-body">
-                            <div class="own-card-item">
-                                <div class="own-card-icon">
-                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0"/></svg>
-                                </div>
-                                <span class="own-card-item-text"><strong>Owner</strong>&nbsp; Alice.eth</span>
-                                <span class="own-card-badge badge-you">You</span>
-                            </div>
-                            <div class="own-card-item">
-                                <div class="own-card-icon">
-                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75"/></svg>
-                                </div>
-                                <span class="own-card-item-text"><strong>Encryption</strong>&nbsp; Password</span>
-                                <span class="own-card-badge badge-open">Active</span>
-                            </div>
-                            <div class="own-card-item">
-                                <div class="own-card-icon">
-                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375"/></svg>
-                                </div>
-                                <span class="own-card-item-text"><strong>Storage</strong>&nbsp; 180 days</span>
-                            </div>
-                            <div class="own-card-item">
-                                <div class="own-card-icon">
-                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197"/></svg>
-                                </div>
-                                <span class="own-card-item-text"><strong>Members</strong>&nbsp; 47 peers connected</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="ownership-header reveal">
+                <div class="own-label" style="margin-bottom:1.25rem;">Ownership</div>
+                <h2 class="own-title">You own everything you create.</h2>
+                <p class="hood-panel-desc" style="max-width:520px; margin:0.5rem auto 0;">Full sovereignty over your accounts and channels. Nothing is stored on our servers — because there are none.</p>
             </div>
 
-            <!-- Responsibility callout -->
-            <div class="ownership-callout reveal">
-                <div class="ownership-callout-icon">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+            <div class="own-tabs reveal stagger-1">
+                <button class="own-tab active" data-own="account">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"/></svg>
+                    <span>Account</span>
+                </button>
+                <button class="own-tab" data-own="channels">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5l-3.9 19.5m-2.1-19.5l-3.9 19.5"/></svg>
+                    <span>Channels</span>
+                </button>
+            </div>
+
+            <div class="own-panels">
+                <!-- CHANNELS PANEL -->
+                <div class="own-panel" id="panel-channels">
+                    <div class="ownership-layout" style="direction:rtl;">
+                        <div style="direction:ltr;">
+                            <h2 class="own-title">Channels belong to their creators.</h2>
+                            <p class="own-desc">
+                                When you create a channel, it lives on the blockchain — not on our servers. You control who joins, what's encrypted, and how long messages are stored.
+                            </p>
+                            <div class="own-points">
+                                <div class="own-point">
+                                    <div class="own-point-dot"></div>
+                                    <p><strong>You set the rules.</strong> Permissions, encryption, and storage — all yours to configure.</p>
+                                </div>
+                                <div class="own-point">
+                                    <div class="own-point-dot"></div>
+                                    <p><strong>You hold the keys.</strong> No one — including Pombo — can take your channels away.</p>
+                                </div>
+                                <div class="own-point">
+                                    <div class="own-point-dot"></div>
+                                    <p><strong>Pombo is just the interface.</strong> If Pombo disappears tomorrow, your channels still exist on the network.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="own-visual" style="direction:ltr;">
+                            <div class="own-card">
+                                <div class="own-card-header">
+                                    <div class="own-card-dot"></div>
+                                    <span class="own-card-name">#design-guild</span>
+                                    <span class="own-card-tag">0x7a2…f41</span>
+                                </div>
+                                <div class="own-card-body">
+                                    <div class="own-card-item">
+                                        <div class="own-card-icon">
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0"/></svg>
+                                        </div>
+                                        <span class="own-card-item-text"><strong>Owner</strong>&nbsp; Alice.eth</span>
+                                        <span class="own-card-badge badge-you">You</span>
+                                    </div>
+                                    <div class="own-card-item">
+                                        <div class="own-card-icon">
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75"/></svg>
+                                        </div>
+                                        <span class="own-card-item-text"><strong>Encryption</strong>&nbsp; Password</span>
+                                        <span class="own-card-badge badge-open">Active</span>
+                                    </div>
+                                    <div class="own-card-item">
+                                        <div class="own-card-icon">
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375"/></svg>
+                                        </div>
+                                        <span class="own-card-item-text"><strong>Storage</strong>&nbsp; 180 days</span>
+                                    </div>
+                                    <div class="own-card-item">
+                                        <div class="own-card-icon">
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197"/></svg>
+                                        </div>
+                                        <span class="own-card-item-text"><strong>Members</strong>&nbsp; 47 peers connected</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <p><strong>With sovereignty comes responsibility.</strong> There is no "Forgot password" button — no company can reset your account. Save your private key or use the built-in backup feature to keep your account safe.</p>
+
+                <!-- ACCOUNT PANEL -->
+                <div class="own-panel active" id="panel-account">
+                    <div class="ownership-layout">
+                        <div>
+                            <h2 class="own-title">Your keys, your identity.</h2>
+                            <p class="own-desc">
+                                Your account is generated in your browser. No email, no phone, no registration server. You prove who you are with cryptography.
+                            </p>
+                            <div class="own-points">
+                                <div class="own-point">
+                                    <div class="own-point-dot"></div>
+                                    <p><strong>Generated locally.</strong> Your private key never leaves your device unencrypted.</p>
+                                </div>
+                                <div class="own-point">
+                                    <div class="own-point-dot"></div>
+                                    <p><strong>Encrypted at rest.</strong> Locked behind your passphrase with industry-standard encryption.</p>
+                                </div>
+                                <div class="own-point">
+                                    <div class="own-point-dot"></div>
+                                    <p><strong>Portable.</strong> Export everything to a single backup file. Import it on any device.</p>
+                                </div>
+                                <div class="own-point">
+                                    <div class="own-point-dot"></div>
+                                    <p><strong>Multiple identities.</strong> Switch between accounts, each with its own data.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="own-visual">
+                            <div class="own-card">
+                                <div class="own-card-header">
+                                    <div class="own-card-dot"></div>
+                                    <span class="own-card-name">Account</span>
+                                    <span class="own-card-tag">0xA3f…8c1</span>
+                                </div>
+                                <div class="own-card-body">
+                                    <div class="own-card-item">
+                                        <div class="own-card-icon">
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"/></svg>
+                                        </div>
+                                        <span class="own-card-item-text"><strong>Key</strong>&nbsp; Generated locally</span>
+                                        <span class="own-card-badge badge-you">Local</span>
+                                    </div>
+                                    <div class="own-card-item">
+                                        <div class="own-card-icon">
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+                                        </div>
+                                        <span class="own-card-item-text"><strong>Storage</strong>&nbsp; Encrypted vault</span>
+                                        <span class="own-card-badge badge-open">Encrypted</span>
+                                    </div>
+                                    <div class="own-card-item">
+                                        <div class="own-card-icon">
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+                                        </div>
+                                        <span class="own-card-item-text"><strong>Protection</strong>&nbsp; Passphrase locked</span>
+                                    </div>
+                                    <div class="own-card-item">
+                                        <div class="own-card-icon">
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+                                        </div>
+                                        <span class="own-card-item-text"><strong>Backup</strong>&nbsp; Full export available</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Responsibility callout -->
+                    <div class="ownership-callout" style="margin-top:2.5rem;">
+                        <div class="ownership-callout-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+                        </div>
+                        <p><strong>With sovereignty comes responsibility.</strong> There is no "Forgot password" button — no company can reset your account. Save your private key or use the built-in backup feature to keep your account safe.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -2594,43 +3124,58 @@
             <div class="dm-layout">
                 <div class="dm-visual reveal">
                     <div class="dm-bubble received">
-                        <div class="dm-bubble-addr">0x7a2…f41</div>
-                        hey, saw your post on the DAO forum. want to collaborate?
-                        <span class="dm-bubble-lock"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg></span>
+                        <div class="dm-bubble-sender">
+                            <span class="badge badge-green">✓</span>
+                            <span style="color:#6C5DD3;">0xae34…7667</span>
+                        </div>
+                        hey, saw your post on the forum. want to collaborate?
+                        <div class="dm-bubble-footer">
+                            <span class="dm-bubble-time">23:11</span>
+                        </div>
                     </div>
                     <div class="dm-bubble sent">
+                        <div class="dm-bubble-sender">
+                            <span class="badge badge-green">✓</span>
+                            <span style="color:#34d399;">bob.pombo.eth</span>
+                        </div>
                         absolutely. let me send you the proposal doc
-                        <span class="dm-bubble-lock"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg></span>
+                        <div class="dm-bubble-footer">
+                            <span class="dm-bubble-time">23:12</span>
+                        </div>
                     </div>
                     <div class="dm-bubble received">
-                        <div class="dm-bubble-addr">0x7a2…f41</div>
+                        <div class="dm-bubble-sender">
+                            <span class="badge badge-green">✓</span>
+                            <span style="color:#6C5DD3;">0xae34…7667</span>
+                        </div>
                         perfect. this is so much better than email 🕊️
-                        <span class="dm-bubble-lock"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg></span>
+                        <div class="dm-bubble-footer">
+                            <span class="dm-bubble-time">23:12</span>
+                        </div>
                     </div>
                 </div>
                 <div class="reveal stagger-2">
                     <div class="own-label">Direct Messages</div>
                     <h2 class="own-title">Message anyone.<br>Just an address.</h2>
                     <p class="own-desc">
-                        Send end-to-end encrypted messages to any Ethereum address. 
-                        No friend requests, no mutual contacts — just an address.
+                        End-to-end encrypted messages to any Ethereum address. No friend requests, no mutual contacts.
                     </p>
                     <div class="own-points">
                         <div class="own-point">
                             <div class="own-point-dot"></div>
-                            <p><strong>Your DM inbox works like a mailbox.</strong> Anyone can write to you; only you can read it. A one-time on-chain registration (small fee in POL) creates two streams tied to your address — one for stored data, one ephemeral.</p>
+                            <p><strong>Works like a mailbox.</strong> Anyone can write to you — only you can read it.</p>
                         </div>
                         <div class="own-point">
                             <div class="own-point-dot"></div>
-                            <p><strong>E2E encrypted with ECDH.</strong> Both wallets independently compute a shared secret. Messages are encrypted with AES-256-GCM — not even the network nodes can read them.</p>
+                            <p><strong>Encrypted by default.</strong> Messages are locked between sender and receiver. No one else can read them.</p>
                         </div>
                         <div class="own-point">
                             <div class="own-point-dot"></div>
-                            <p><strong>Stored locally + on storage nodes.</strong> Sent DM messages are saved encrypted on your device. Received messages are kept on storage nodes. Both merge seamlessly when you open a conversation.</p>
+                            <p><strong>Stored safely.</strong> Conversations are saved encrypted on your device and on the network.</p>
                         </div>
                         <div class="own-point">
                             <div class="own-point-dot"></div>
-                            <p><strong>Cross-device sync.</strong> Your inbox doubles as a sync channel — encrypted state is published to your own stream and fetched by any new device you sign in on.</p>
+                            <p><strong>Cross-device sync.</strong> Your inbox doubles as a sync channel — sign in on a new device and your entire app state comes with you.</p>
                         </div>
                     </div>
                 </div>
@@ -2638,326 +3183,398 @@
         </div>
     </section>
 
-    <!-- ARCHITECTURE -->
-    <section class="architecture" id="architecture">
+    <!-- UNDER THE HOOD (TABBED) -->
+    <section class="hood" id="hood">
         <div class="container">
-            <div class="arch-layout">
-                <div class="reveal">
-                    <div class="own-label">How It Works</div>
-                    <h2 class="own-title">Multiple streams.<br>Zero servers.</h2>
-                    <p class="own-desc">
-                        Every channel uses multiple separate data streams on the Streamr Network — 
-                        one for messages that are saved, and one for live-only signals 
-                        like typing indicators and file transfers.
-                    </p>
-                    <p class="own-desc" style="font-size: 0.875rem; margin-bottom: 1rem;">
-                        When you send a message, it's published to the network and delivered 
-                        to everyone in the channel in real-time — no central server involved. 
-                        Your message history is kept on a cluster of storage nodes of your choice.
-                    </p>
-                    <p class="own-desc" style="font-size: 0.875rem;">
-                        Live signals — like who's online, who's typing, and peer-to-peer file 
-                        transfers — travel through a separate ephemeral stream that leaves no trace.
-                    </p>
+            <div class="hood-header reveal">
+                <div class="own-label">Under the Hood</div>
+                <h2 class="own-title">How Pombo works.</h2>
+                <p class="hood-panel-desc" style="max-width:520px; margin:0.5rem auto 0;">Explore the architecture, storage, security, and notification system that power decentralized messaging.</p>
+            </div>
+
+            <div class="hood-tabs reveal stagger-1">
+                <button class="hood-tab active" data-hood="architecture">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"/></svg>
+                    <span>Architecture</span>
+                </button>
+                <button class="hood-tab" data-hood="storage">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3" stroke-width="1.5"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5v7c0 1.657 3.582 3 8 3s8-1.343 8-3V5"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 12v7c0 1.657 3.582 3 8 3s8-1.343 8-3v-7"/></svg>
+                    <span>Storage</span>
+                </button>
+                <button class="hood-tab" data-hood="security">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+                    <span>Security</span>
+                </button>
+                <button class="hood-tab" data-hood="notifications">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg>
+                    <span>Notifications</span>
+                </button>
+            </div>
+
+            <div class="hood-panels">
+                <!-- ── ARCHITECTURE PANEL ── -->
+                <div class="hood-panel active" id="panel-architecture">
+                    <div class="hood-two-col">
+                        <div>
+                            <h3 class="own-title" style="font-size:1.5rem;">One channel.<br>Two streams. On-chain.</h3>
+                            <p class="hood-panel-desc">
+                                When you create a channel, a set of smart contracts is deployed on Polygon PoS.
+                                They manage permissions, metadata, and ownership of two data streams
+                                on the Streamr Network — one for saved messages, one for live-only signals.
+                            </p>
+                            <p class="hood-panel-desc">
+                                Everything from who can join to who can publish is enforced on-chain.
+                                When you send a message, it's published to the network and delivered
+                                to everyone in the channel in real-time — no central server involved.
+                                Your message history is kept on a cluster of storage nodes of your choice.
+                            </p>
+                            <p class="hood-panel-desc">
+                                Live signals — like who's online, who's typing, and peer-to-peer file
+                                transfers — travel through a separate ephemeral stream that leaves no trace.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="arch-diagram">
+                                <div class="arch-stream">
+                                    <div class="arch-stream-header">
+                                        <span class="arch-stream-label">Message Stream</span>
+                                        <span class="arch-stream-id">Saved history</span>
+                                    </div>
+                                    <div class="partition-row">
+                                        <span class="partition-num">P0</span>
+                                        <div class="partition-info">
+                                            <div class="partition-name">Messages</div>
+                                            <div class="partition-desc">Chat text, reactions, media announcements</div>
+                                        </div>
+                                        <div class="partition-icon">
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/></svg>
+                                        </div>
+                                    </div>
+                                    <div class="partition-row">
+                                        <span class="partition-num">P1</span>
+                                        <div class="partition-info">
+                                            <div class="partition-name">Device Sync</div>
+                                            <div class="partition-desc">Cross-device sync state (encrypted)</div>
+                                        </div>
+                                        <div class="partition-icon">
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="arch-stream" style="margin-top: 1.5rem;">
+                                    <div class="arch-stream-header">
+                                        <span class="arch-stream-label">Ephemeral Stream</span>
+                                        <span class="arch-stream-id">Live only — no trace</span>
+                                    </div>
+                                    <div class="partition-row">
+                                        <span class="partition-num">P0</span>
+                                        <div class="partition-info">
+                                            <div class="partition-name">Presence &amp; Typing</div>
+                                            <div class="partition-desc">Online status, typing indicators</div>
+                                        </div>
+                                        <div class="partition-icon">
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                        </div>
+                                    </div>
+                                    <div class="partition-row">
+                                        <span class="partition-num">P1</span>
+                                        <div class="partition-info">
+                                            <div class="partition-name">File Transfer</div>
+                                            <div class="partition-desc">Peer-to-peer media delivery</div>
+                                        </div>
+                                        <div class="partition-icon">
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5z"/></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="arch-text">
+                                    <h3>Why this architecture?</h3>
+                                    <p>
+                                        Smart contracts are the single source of truth for permissions — no server decides who's in or out.
+                                        Keeping live signals separate from saved messages means your typing
+                                        indicators and online status are never stored anywhere. Files are
+                                        transferred directly between peers, without ever touching storage nodes.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="reveal stagger-2">
-                    <div class="arch-diagram">
-                        <div class="arch-stream">
-                            <div class="arch-stream-header">
-                                <span class="arch-stream-label">Message Stream</span>
-                                <span class="arch-stream-id">Saved history</span>
+
+                <!-- ── STORAGE PANEL ── -->
+                <div class="hood-panel" id="panel-storage">
+                    <div style="text-align:center; margin-bottom:2.5rem;">
+                        <h3 class="own-title" style="font-size:1.5rem;">Your messages,<br>your storage choice.</h3>
+                        <p class="hood-panel-desc" style="max-width:560px; margin:0 auto;">Messages travel fully encrypted across the network. Storage nodes hold public and encrypted data — but they can never read your private content.</p>
+                    </div>
+
+                    <!-- Flow -->
+                    <div class="storage-flow" style="margin-bottom:2.5rem;">
+                        <div class="flow-step">
+                            <div class="flow-step-icon">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
                             </div>
-                            <div class="partition-row">
-                                <span class="partition-num">P0</span>
-                                <div class="partition-info">
-                                    <div class="partition-name">Messages</div>
-                                    <div class="partition-desc">Chat text, reactions, media announcements</div>
-                                </div>
-                                <div class="partition-icon">
-                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/></svg>
-                                </div>
+                            <span class="flow-step-label">Encrypt</span>
+                            <span class="flow-step-sub">In the browser</span>
+                        </div>
+                        <div class="flow-arrow">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                        </div>
+                        <div class="flow-step">
+                            <div class="flow-step-icon">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/></svg>
                             </div>
-                            <div class="partition-row">
-                                <span class="partition-num">P1</span>
-                                <div class="partition-info">
-                                    <div class="partition-name">Device Sync</div>
-                                    <div class="partition-desc">Cross-device sync state (encrypted)</div>
+                            <span class="flow-step-label">P2P Network</span>
+                            <span class="flow-step-sub">Streamr nodes</span>
+                        </div>
+                        <div class="flow-arrow">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                        </div>
+                        <div class="flow-step">
+                            <div class="flow-step-icon">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/></svg>
+                            </div>
+                            <span class="flow-step-label">Storage Cluster</span>
+                            <span class="flow-step-sub">Encrypted blobs</span>
+                        </div>
+                        <div class="flow-arrow">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                        </div>
+                        <div class="flow-step">
+                            <div class="flow-step-icon">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+                            </div>
+                            <span class="flow-step-label">Decrypt</span>
+                            <span class="flow-step-sub">In the browser</span>
+                        </div>
+                    </div>
+
+                    <!-- Storage options -->
+                    <div class="storage-options" style="margin-bottom:2rem;">
+                        <div class="storage-option">
+                            <div class="storage-option-header">
+                                <div class="storage-option-icon official">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z"/></svg>
                                 </div>
-                                <div class="partition-icon">
-                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/></svg>
+                                <h3>Streamr Official</h3>
+                                <span class="storage-option-tag tag-default">Default</span>
+                            </div>
+                            <p>Official storage cluster operated by Streamr. Zero configuration needed — just start chatting.</p>
+                            <div class="storage-option-features">
+                                <div class="storage-option-feature">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                                    Zero configuration
+                                </div>
+                                <div class="storage-option-feature">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                                    Always-on availability
+                                </div>
+                                <div class="storage-option-feature">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                                    Encrypted at rest
                                 </div>
                             </div>
                         </div>
-                        <div class="arch-stream" style="margin-top: 1.5rem;">
-                            <div class="arch-stream-header">
-                                <span class="arch-stream-label">Ephemeral Stream</span>
-                                <span class="arch-stream-id">Live only — no trace</span>
+                        <div class="storage-option">
+                            <div class="storage-option-header">
+                                <div class="storage-option-icon custom">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z"/></svg>
+                                </div>
+                                <h3>Custom Nodes</h3>
+                                <span class="storage-option-tag tag-soon">Coming soon</span>
                             </div>
-                            <div class="partition-row">
-                                <span class="partition-num">P0</span>
-                                <div class="partition-info">
-                                    <div class="partition-name">Presence &amp; Typing</div>
-                                    <div class="partition-desc">Online status, typing indicators</div>
+                            <p>Run your own storage node or choose a community-operated one. Full control over where your encrypted history lives.</p>
+                            <div class="storage-option-features">
+                                <div class="storage-option-feature">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                                    Self-hosted or community
                                 </div>
-                                <div class="partition-icon">
-                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                <div class="storage-option-feature">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                                    Choose your jurisdiction
                                 </div>
-                            </div>
-                            <div class="partition-row">
-                                <span class="partition-num">P1</span>
-                                <div class="partition-info">
-                                    <div class="partition-name">File Transfer</div>
-                                    <div class="partition-desc">Peer-to-peer media delivery</div>
-                                </div>
-                                <div class="partition-icon">
-                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5z"/></svg>
+                                <div class="storage-option-feature">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                                    Data sovereignty
                                 </div>
                             </div>
                         </div>
-                        <div class="arch-text">
-                            <h3>Why multiple streams?</h3>
-                            <p>
-                                Keeping live signals separate from saved messages means your typing 
-                                indicators and online status are never stored anywhere. Files are 
-                                transferred directly between peers, without ever touching storage nodes.
+                    </div>
+
+                    <div class="storage-callout">
+                        <div class="storage-callout-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+                        </div>
+                        <p><strong>Regardless of which option you choose</strong>, storage nodes only hold encrypted data. Decryption keys never leave your device — only you and your recipients can read your messages.</p>
+                    </div>
+                </div>
+
+                <!-- ── SECURITY PANEL ── -->
+                <div class="hood-panel" id="panel-security">
+                    <div style="margin-bottom:2rem;">
+                        <h3 class="own-title" style="font-size:1.5rem;">Encryption you<br>can verify.</h3>
+                        <p class="hood-panel-desc" style="max-width:520px;">
+                            All encryption happens in your browser using built-in browser APIs.
+                            No external libraries, no hidden servers. The source code is open
+                            for anyone to audit.
+                        </p>
+                    </div>
+                    <div class="hood-two-col">
+                        <div>
+                            <div class="security-stack">
+                                <div class="security-item">
+                                    <div class="security-item-icon">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"/></svg>
+                                    </div>
+                                    <div>
+                                        <h4>Password Channels</h4>
+                                        <p>Your password is transformed into a strong encryption key using 310,000 rounds of key stretching, making brute-force attacks impractical.</p>
+                                    </div>
+                                </div>
+                                <div class="security-item">
+                                    <div class="security-item-icon">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+                                    </div>
+                                    <div>
+                                        <h4>Direct Messages</h4>
+                                        <p>DMs use key agreement between your account and the recipient's — both sides independently compute a shared secret that no one else can derive.</p>
+                                    </div>
+                                </div>
+                                <div class="security-item">
+                                    <div class="security-item-icon">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a2.25 2.25 0 00-2.25-2.25H15a3 3 0 11-6 0H5.25A2.25 2.25 0 003 12m18 0v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 9m18 0V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v3"/></svg>
+                                    </div>
+                                    <div>
+                                        <h4>Account Storage</h4>
+                                        <p>Your private key is stored locally on your device, encrypted with your passphrase.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="encrypt-demo" id="encrypt-demo">
+                                <div class="encrypt-demo-tabs">
+                                    <button class="encrypt-demo-tab active" data-demo="message">Messages</button>
+                                    <button class="encrypt-demo-tab" data-demo="ecdh">DM Key Exchange</button>
+                                    <button class="encrypt-demo-tab" data-demo="wallet">Account</button>
+                                </div>
+                                <div class="encrypt-demo-panel" id="demo-message">
+                                    <span class="encrypt-demo-label">Live preview · AES-256-GCM</span>
+                                    <div class="encrypt-demo-msg" id="encrypt-msg">hey, want to collaborate on the proposal?</div>
+                                    <div class="encrypt-demo-bar"><div class="encrypt-demo-bar-fill" id="encrypt-bar"></div></div>
+                                    <div class="encrypt-demo-status" id="encrypt-status"><span class="dot"></span> Plaintext</div>
+                                </div>
+                                <div class="encrypt-demo-panel" id="demo-ecdh" style="display:none;">
+                                    <span class="encrypt-demo-label">Key agreement · ECDH → AES-GCM</span>
+                                    <div class="encrypt-demo-flow" id="ecdh-flow">
+                                        <div class="encrypt-demo-node" id="ecdh-a"><span class="node-label">Your account</span>0xA3f…8c1</div>
+                                        <div class="encrypt-demo-arrow" id="ecdh-arrow1">→</div>
+                                        <div class="encrypt-demo-node" id="ecdh-mid"><span class="node-label">ECDH</span>computing…</div>
+                                        <div class="encrypt-demo-arrow" id="ecdh-arrow2">→</div>
+                                        <div class="encrypt-demo-node" id="ecdh-b"><span class="node-label">Their account</span>0x7a2…f41</div>
+                                    </div>
+                                    <div class="encrypt-demo-bar"><div class="encrypt-demo-bar-fill" id="ecdh-bar"></div></div>
+                                    <div class="encrypt-demo-status" id="ecdh-status"><span class="dot"></span> Waiting</div>
+                                </div>
+                                <div class="encrypt-demo-panel" id="demo-wallet" style="display:none;">
+                                    <span class="encrypt-demo-label">Account protection · scrypt → AES</span>
+                                    <div class="encrypt-demo-flow" id="wallet-flow">
+                                        <div class="encrypt-demo-node" id="wallet-pass"><span class="node-label">Passphrase</span>••••••••••</div>
+                                        <div class="encrypt-demo-arrow" id="wallet-arrow1">→</div>
+                                        <div class="encrypt-demo-node" id="wallet-scrypt"><span class="node-label">scrypt</span>deriving…</div>
+                                        <div class="encrypt-demo-arrow" id="wallet-arrow2">→</div>
+                                        <div class="encrypt-demo-node" id="wallet-key"><span class="node-label">Private key</span>encrypted</div>
+                                    </div>
+                                    <div class="encrypt-demo-bar"><div class="encrypt-demo-bar-fill" id="wallet-bar"></div></div>
+                                    <div class="encrypt-demo-status" id="wallet-status"><span class="dot"></span> Waiting</div>
+                                </div>
+                            </div>
+                            <p style="font-size:0.75rem; color:var(--text-3); margin-top:1rem; text-align:center;">
+                                All cryptographic operations run in your browser via <code style="color:var(--accent);">window.crypto.subtle</code>
                             </p>
                         </div>
                     </div>
+                    <div class="storage-callout" style="margin-top:2rem;">
+                        <div class="storage-callout-icon" style="background:rgba(234,179,8,0.1); color:#eab308;">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+                        </div>
+                        <p><strong style="color:#eab308;">Strong passwords matter.</strong> Your passwords protect your encrypted channels, your account, and your backups. Use long, unique passwords and store them safely — there is no "Forgot password" button.</p>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- STORAGE -->
-    <section class="storage" id="storage">
-        <div class="container">
-            <div class="storage-header reveal">
-                <div class="own-label">Storage</div>
-                <h2>Your messages,<br>your storage choice.</h2>
-                <p>Messages travel encrypted through the network. Storage nodes hold only encrypted blobs — they can never read your content.</p>
-            </div>
-
-            <!-- Flow Diagram -->
-            <div class="storage-flow reveal">
-                <div class="flow-step">
-                    <div class="flow-step-icon">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
-                    </div>
-                    <span class="flow-step-label">Encrypt</span>
-                    <span class="flow-step-sub">In the browser</span>
-                </div>
-                <div class="flow-arrow">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-                </div>
-                <div class="flow-step">
-                    <div class="flow-step-icon">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/></svg>
-                    </div>
-                    <span class="flow-step-label">P2P Network</span>
-                    <span class="flow-step-sub">Streamr nodes</span>
-                </div>
-                <div class="flow-arrow">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-                </div>
-                <div class="flow-step">
-                    <div class="flow-step-icon">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/></svg>
-                    </div>
-                    <span class="flow-step-label">Storage Cluster</span>
-                    <span class="flow-step-sub">Encrypted blobs</span>
-                </div>
-                <div class="flow-arrow">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-                </div>
-                <div class="flow-step">
-                    <div class="flow-step-icon">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
-                    </div>
-                    <span class="flow-step-label">Decrypt</span>
-                    <span class="flow-step-sub">In the browser</span>
-                </div>
-            </div>
-
-            <!-- Storage Options -->
-            <div class="storage-options reveal">
-                <div class="storage-option">
-                    <div class="storage-option-header">
-                        <div class="storage-option-icon official">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z"/></svg>
-                        </div>
-                        <h3>Streamr Official</h3>
-                        <span class="storage-option-tag tag-default">Default</span>
-                    </div>
-                    <p>Official storage cluster operated by Streamr. Zero configuration needed — just start chatting and your message history is preserved.</p>
-                    <div class="storage-option-features">
-                        <div class="storage-option-feature">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>
-                            Zero configuration
-                        </div>
-                        <div class="storage-option-feature">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>
-                            Always-on availability
-                        </div>
-                        <div class="storage-option-feature">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>
-                            Encrypted at rest
-                        </div>
-                    </div>
-                </div>
-                <div class="storage-option">
-                    <div class="storage-option-header">
-                        <div class="storage-option-icon custom">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z"/></svg>
-                        </div>
-                        <h3>Custom Nodes</h3>
-                        <span class="storage-option-tag tag-soon">Coming soon</span>
-                    </div>
-                    <p>Run your own storage node or choose a community-operated one. Full control over where your encrypted message history lives.</p>
-                    <div class="storage-option-features">
-                        <div class="storage-option-feature">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>
-                            Self-hosted or community
-                        </div>
-                        <div class="storage-option-feature">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>
-                            Choose your jurisdiction
-                        </div>
-                        <div class="storage-option-feature">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>
-                            Data sovereignty
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Callout -->
-            <div class="storage-callout reveal">
-                <div class="storage-callout-icon">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
-                </div>
-                <p><strong>Regardless of which option you choose</strong>, storage nodes only hold encrypted data. Decryption keys never leave your device — only you and your recipients can read your messages.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECURITY -->
-    <section class="security" id="security">
-        <div class="container">
-            <div class="reveal" style="margin-bottom: 3rem; max-width: calc(50% - 1.5rem);">
-                <div class="own-label">Security</div>
-                <h2 class="own-title">Encryption you<br>can verify.</h2>
-                <p class="own-desc">
-                    All encryption happens in your browser using built-in browser APIs. 
-                    No external libraries, no hidden servers. The source code is open 
-                    for anyone to audit.
-                </p>
-            </div>
-            <div class="security-layout">
-                <div class="reveal">
-                    <div class="security-stack">
-                        <div class="security-item">
-                            <div class="security-item-icon">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"/></svg>
-                            </div>
-                            <div>
-                                <h4>Password Channels</h4>
-                                <p>Your password is transformed into a strong encryption key using 310,000 rounds of key stretching, making brute-force attacks impractical.</p>
-                            </div>
-                        </div>
-                        <div class="security-item">
-                            <div class="security-item-icon">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
-                            </div>
-                            <div>
-                                <h4>Direct Messages</h4>
-                                <p>DMs use key agreement between your account and the recipient's — both sides independently compute a shared secret that no one else can derive.</p>
-                            </div>
-                        </div>
-                        <div class="security-item">
-                            <div class="security-item-icon">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a2.25 2.25 0 00-2.25-2.25H15a3 3 0 11-6 0H5.25A2.25 2.25 0 003 12m18 0v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 9m18 0V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v3"/></svg>
-                            </div>
-                            <div>
-                                <h4>Account Storage</h4>
-                                <p>Your private key is stored locally on your device, encrypted with your passphrase.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="reveal stagger-2">
-                    <div class="encrypt-demo" id="encrypt-demo">
-                        <div class="encrypt-demo-tabs">
-                            <button class="encrypt-demo-tab active" data-demo="message">Messages</button>
-                            <button class="encrypt-demo-tab" data-demo="ecdh">DM Key Exchange</button>
-                            <button class="encrypt-demo-tab" data-demo="wallet">Account</button>
-                        </div>
-
-                        <!-- Message encryption -->
-                        <div class="encrypt-demo-panel" id="demo-message">
-                            <span class="encrypt-demo-label">Live preview · AES-256-GCM</span>
-                            <div class="encrypt-demo-msg" id="encrypt-msg">hey, want to collaborate on the DAO proposal?</div>
-                            <div class="encrypt-demo-bar"><div class="encrypt-demo-bar-fill" id="encrypt-bar"></div></div>
-                            <div class="encrypt-demo-status" id="encrypt-status"><span class="dot"></span> Plaintext</div>
-                        </div>
-
-                        <!-- ECDH key exchange -->
-                        <div class="encrypt-demo-panel" id="demo-ecdh" style="display:none;">
-                            <span class="encrypt-demo-label">Key agreement · ECDH → AES-GCM</span>
-                            <div class="encrypt-demo-flow" id="ecdh-flow">
-                                <div class="encrypt-demo-node" id="ecdh-a">
-                                    <span class="node-label">Your account</span>
-                                    0xA3f…8c1
+                <!-- ── NOTIFICATIONS PANEL ── -->
+                <div class="hood-panel" id="panel-notifications">
+                    <div class="hood-two-col">
+                        <div>
+                            <h3 class="own-title" style="font-size:1.5rem;">Push notifications.<br>Privacy layer added.</h3>
+                            <p class="hood-panel-desc">
+                                Yes, notifications still reach your phone through Google FCM or Apple APNs — every app needs that last-mile delivery.
+                                The difference is what they see. In most apps, Google and Apple know exactly who is messaging who and when.
+                                Pombo adds a P2P relay layer that strips that metadata before it ever reaches them.
+                            </p>
+                            <div class="push-features-new">
+                                <div class="push-feature-new">
+                                    <div class="push-feature-svg-icon">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197"/></svg>
+                                    </div>
+                                    <div>
+                                        <strong>K-Anonymity</strong>
+                                        <span>Tags are truncated so the relay sends the wake to every device that matches — hundreds at once. Google and Apple deliver it to all of them. Only each device knows if it's the real recipient.</span>
+                                    </div>
                                 </div>
-                                <div class="encrypt-demo-arrow" id="ecdh-arrow1">→</div>
-                                <div class="encrypt-demo-node" id="ecdh-mid">
-                                    <span class="node-label">ECDH</span>
-                                    computing…
+                                <div class="push-feature-new">
+                                    <div class="push-feature-svg-icon">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/></svg>
+                                    </div>
+                                    <div>
+                                        <strong>Proof-of-Work Anti-Spam</strong>
+                                        <span>Sending a notification requires solving a computational puzzle — no accounts, no API keys, just math.</span>
+                                    </div>
                                 </div>
-                                <div class="encrypt-demo-arrow" id="ecdh-arrow2">→</div>
-                                <div class="encrypt-demo-node" id="ecdh-b">
-                                    <span class="node-label">Their account</span>
-                                    0x7a2…f41
+                                <div class="push-feature-new">
+                                    <div class="push-feature-svg-icon">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"/></svg>
+                                    </div>
+                                    <div>
+                                        <strong>Open-source Relays</strong>
+                                        <span>Anyone can run a relay server. It can't read messages, doesn't know the sender's IP, and can't identify receivers.</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="encrypt-demo-bar"><div class="encrypt-demo-bar-fill" id="ecdh-bar"></div></div>
-                            <div class="encrypt-demo-status" id="ecdh-status"><span class="dot"></span> Waiting</div>
                         </div>
-
-                        <!-- Account encryption -->
-                        <div class="encrypt-demo-panel" id="demo-wallet" style="display:none;">
-                            <span class="encrypt-demo-label">Account protection · scrypt → AES</span>
-                            <div class="encrypt-demo-flow" id="wallet-flow">
-                                <div class="encrypt-demo-node" id="wallet-pass">
-                                    <span class="node-label">Passphrase</span>
-                                    ••••••••••
+                        <div>
+                            <div class="push-flow-v">
+                                <div class="push-flow-v-step">
+                                    <div class="push-flow-v-node">Alice sends message</div>
                                 </div>
-                                <div class="encrypt-demo-arrow" id="wallet-arrow1">→</div>
-                                <div class="encrypt-demo-node" id="wallet-scrypt">
-                                    <span class="node-label">scrypt</span>
-                                    deriving…
+                                <div class="push-flow-v-arrow">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"/></svg>
                                 </div>
-                                <div class="encrypt-demo-arrow" id="wallet-arrow2">→</div>
-                                <div class="encrypt-demo-node" id="wallet-key">
-                                    <span class="node-label">Private key</span>
-                                    encrypted
+                                <div class="push-flow-v-step">
+                                    <div class="push-flow-v-node push-flow-v-accent">Wake signal + PoW<br><span class="push-flow-v-detail">broadcast on Streamr P2P</span></div>
+                                </div>
+                                <div class="push-flow-v-arrow">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"/></svg>
+                                </div>
+                                <div class="push-flow-v-step">
+                                    <div class="push-flow-v-node">Relay matches truncated tag<br><span class="push-flow-v-detail">sends wake to all matching devices (hundreds)</span></div>
+                                </div>
+                                <div class="push-flow-v-arrow">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"/></svg>
+                                </div>
+                                <div class="push-flow-v-step">
+                                    <div class="push-flow-v-node">Google FCM / Apple APNs<br><span class="push-flow-v-detail">delivers push to all of them — can't tell who's the real one</span></div>
+                                </div>
+                                <div class="push-flow-v-arrow">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"/></svg>
+                                </div>
+                                <div class="push-flow-v-step">
+                                    <div class="push-flow-v-node push-flow-v-success">Bob's device recognizes it<br><span class="push-flow-v-detail">others silently discard — only Bob sees the notification</span></div>
                                 </div>
                             </div>
-                            <div class="encrypt-demo-bar"><div class="encrypt-demo-bar-fill" id="wallet-bar"></div></div>
-                            <div class="encrypt-demo-status" id="wallet-status"><span class="dot"></span> Waiting</div>
                         </div>
                     </div>
-                    <p style="font-size: 0.75rem; color: var(--text-3); margin-top: 1rem; text-align: center;">
-                        All cryptographic operations run in your browser via <code style="color: var(--accent);">window.crypto.subtle</code>
-                    </p>
                 </div>
-            </div>
-
-            <!-- Strong password callout -->
-            <div class="storage-callout reveal" style="margin-top: 3rem;">
-                <div class="storage-callout-icon" style="background: rgba(234,179,8,0.1); color: #eab308;">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
-                </div>
-                <p><strong style="color: #eab308;">Strong passwords matter.</strong> Your passwords protect your encrypted channels, your account, and your backups. Use long, unique passwords and store them safely — there is no "Forgot password" button. No one can recover them for you.</p>
             </div>
         </div>
     </section>
@@ -3018,63 +3635,6 @@
                     <div class="comp-cell comp-highlight comp-yes" data-label="Pombo">Fully open</div>
                 </div>
             </div>
-
-            <!-- Push Notifications Spotlight -->
-            <div class="reveal stagger-3">
-                <div class="push-spotlight-inner">
-                    <div>
-                        <div class="own-label">Push Notifications Reimagined</div>
-                        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: white;">Notifications without surveillance.</h3>
-                        <p style="font-size: 0.9375rem; color: var(--text-2); line-height: 1.7; margin-bottom: 1.5rem;">
-                            Traditional push notifications go through Google or Apple, who can see exactly 
-                            who is messaging who and when. Even "end-to-end encrypted" apps like Signal 
-                            leak this metadata.
-                        </p>
-                        <div class="push-features">
-                            <div class="push-feature">
-                                <span class="push-feature-icon">🔒</span>
-                                <div>
-                                    <strong>K-Anonymity</strong>
-                                    <span>Tags are truncated so the relay can't tell who the notification is for — it matches hundreds of possible recipients.</span>
-                                </div>
-                            </div>
-                            <div class="push-feature">
-                                <span class="push-feature-icon">⛏️</span>
-                                <div>
-                                    <strong>Proof-of-Work Anti-Spam</strong>
-                                    <span>Sending a notification requires solving a computational puzzle — no accounts, no API keys, just math.</span>
-                                </div>
-                            </div>
-                            <div class="push-feature">
-                                <span class="push-feature-icon">🌐</span>
-                                <div>
-                                    <strong>Decentralized Relays</strong>
-                                    <span>Anyone can run a relay. The relay can't read messages and can't identify receivers</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="push-flow">
-                            <div class="push-flow-step">
-                                <div class="push-flow-node">Alice sends message</div>
-                                <div class="push-flow-arrow">↓</div>
-                            </div>
-                            <div class="push-flow-step">
-                                <div class="push-flow-node push-flow-accent">Wake signal + PoW<br><span class="push-flow-detail">broadcast on Streamr</span></div>
-                                <div class="push-flow-arrow">↓</div>
-                            </div>
-                            <div class="push-flow-step">
-                                <div class="push-flow-node">Relay picks it up<br><span class="push-flow-detail">can't see who it's for</span></div>
-                                <div class="push-flow-arrow">↓</div>
-                            </div>
-                            <div class="push-flow-step">
-                                <div class="push-flow-node push-flow-success">Bob gets a push 🔔<br><span class="push-flow-detail">opens Pombo, gets message</span></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -3082,7 +3642,7 @@
     <section class="tech" id="tech">
         <div class="container">
             <div class="tech-header reveal">
-                <div class="tech-label">Under the Hood</div>
+                <div class="tech-label">Stack</div>
                 <div class="tech-title">Built on proven primitives.</div>
             </div>
             <div class="tech-grid reveal-scale stagger-2">
@@ -3104,30 +3664,30 @@
                     <div class="tech-item-label">HTML sanitization<br>Anti-XSS protection</div>
                 </div>
                 <div class="tech-row-label">Stack</div>
-                <div class="tech-item">
+                <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noopener" class="tech-item" style="text-decoration:none;color:inherit;">
                     <div class="tech-item-logo">
                         <svg viewBox="0 0 256 256" fill="none"><rect width="256" height="256" rx="30" fill="#F7DF1E"/><path d="M67.312 213.932l19.59-11.856c3.78 6.701 7.218 12.371 15.465 12.371 7.905 0 12.89-3.092 12.89-15.12v-81.798h24.057v82.138c0 24.917-14.606 36.259-35.916 36.259-19.245 0-30.416-9.967-36.087-21.996m85.07-2.576l19.588-11.341c5.157 8.421 11.859 14.607 23.715 14.607 9.969 0 16.325-4.984 16.325-11.858 0-8.248-6.53-11.17-17.528-15.98l-6.013-2.58c-17.357-7.387-28.87-16.667-28.87-36.257 0-18.044 13.747-31.792 35.228-31.792 15.294 0 26.292 5.328 34.196 19.247l-18.732 12.03c-4.125-7.389-8.591-10.31-15.465-10.31-7.046 0-11.514 4.468-11.514 10.31 0 7.217 4.468 10.14 14.778 14.608l6.014 2.577c20.45 8.765 31.963 17.7 31.963 37.804 0 21.654-17.012 33.51-39.867 33.51-22.339 0-36.774-10.654-43.819-24.574" fill="#000"/></svg>
                     </div>
                     <div class="tech-item-label">JavaScript</div>
-                </div>
-                <div class="tech-item">
+                </a>
+                <a href="https://streamr.network" target="_blank" rel="noopener" class="tech-item" style="text-decoration:none;color:inherit;">
                     <div class="tech-item-logo">
                         <svg viewBox="0 0 56 56" fill="none"><path d="M35.0047 1.4C35.0047 1.4 35.0049 1.26403 35.0051 0.993673C35.0054 0.723317 34.8953 0.464565 34.7003 0.277179C34.5053 0.0897938 34.2423-0.0100187 33.972 0.000795574C23.108 0.537804 14.4471 9.26736 14.0013 20.1297C14.0001 20.3653 14.0959 20.591 14.2663 20.7537C14.4367 20.9165 14.6666 21.002 14.902 20.9902H16.5577C17.0688 20.9948 17.4945 20.5998 17.5279 20.09C17.997 11.1376 25.1539 3.98441 34.1111 3.51558C34.7932 3.42953 35.0047 3.05555 35.0047 2.60213C35.0047 2.14872 35.0047 1.4 35.0047 1.4ZM20.7667 21.007C21.1765 21.007 21.3129 21.0053 21.8161 21.0068C22.3192 21.0082 22.7382 20.6212 22.7764 20.1198C23.2113 14.0186 28.084 9.17399 34.1906 8.77121C34.6703 8.73759 35.0336 8.32432 35.0051 7.84452V6.24599C34.9992 5.97788 34.885 5.72356 34.6886 5.54091C34.4921 5.35826 34.2301 5.26281 33.9621 5.27628C26.0735 5.79808 19.7902 12.0766 19.2663 19.9609C19.2529 20.2288 19.3484 20.4907 19.5311 20.687C19.7138 20.8834 19.9683 21.0011 20.2366 21.007C20.5048 21.0129 20.5596 21.007 20.7667 21.007ZM35.0052 11.5182V13.1233C35.0007 13.6032 34.6353 14.0027 34.1574 14.05C30.9682 14.4403 28.4523 16.9468 28.0513 20.133C27.9905 20.6231 27.5785 20.994 27.0844 21.0035H25.697C24.942 21.0035 24.4883 20.5136 24.5446 19.9477C25.048 14.9787 28.9803 11.0499 33.9521 10.5485C34.2235 10.5252 34.4921 10.6171 34.6924 10.8015C34.8926 10.9859 35.0061 11.246 35.0052 11.5182ZM53.4096 34.9666C52.9559 34.9666 52.5818 34.7482 52.4957 34.0664C52.0324 25.1028 44.8643 17.94 35.8959 17.4787C35.3859 17.4454 34.9906 17.0199 34.9952 16.509V14.8542C34.9834 14.619 35.0689 14.3892 35.2318 14.2189C35.3947 14.0486 35.6205 13.9528 35.8562 13.954C46.7256 14.3979 55.4616 23.0547 55.9991 33.9142C56.0107 34.1814 55.9139 34.4421 55.7307 34.6371C55.5474 34.8321 55.2932 34.945 55.0255 34.9501L53.4096 34.9666ZM35.0051 20.2092C35.011 19.9404 35.1257 19.6856 35.3229 19.5028C35.5201 19.3201 35.783 19.225 36.0515 19.2394C43.9377 19.7626 50.2187 26.0389 50.744 33.9208C50.7584 34.1892 50.6633 34.452 50.4804 34.6491C50.2976 34.8461 50.0426 34.9607 49.7737 34.9666H48.1744C47.6907 34.9949 47.2756 34.6259 47.2472 34.1425C46.8412 28.0429 41.9966 23.1769 35.8959 22.741C35.3942 22.7028 35.007 22.2841 35.0085 21.7812L35.0051 20.2092ZM44.1 34.9673C44.1 34.9673 43.3663 34.9718 42.8861 34.9673C42.406 34.9629 42.0063 34.5936 41.959 34.1161C41.5681 30.9274 39.0586 28.4125 35.8694 28.0132C35.379 27.9523 35.0079 27.5405 34.9985 27.0468V25.4846C34.9975 25.2118 35.1114 24.9512 35.3124 24.7666C35.5135 24.5821 35.783 24.4907 36.0548 24.5149C41.0267 25.0163 44.959 28.9452 45.4624 33.9142C45.4856 34.1854 45.3937 34.4538 45.2092 34.654C45.0247 34.8542 44.7645 34.9676 44.4921 34.9666L44.1 34.9673ZM2.58048 21.0001C3.03413 21.0001 3.40831 21.2186 3.49441 21.9004C3.95814 30.8675 11.1318 38.0317 20.1041 38.488C20.6141 38.5214 21.0094 38.9469 21.0048 39.4577V41.1125C21.0166 41.3478 20.9311 41.5776 20.7682 41.7479C20.6053 41.9181 20.3795 42.0139 20.1438 42.0127C9.27444 41.5688 0.538365 32.912 0.000942009 22.0526C-0.0107061 21.7853 0.0860639 21.5246 0.269329 21.3296C0.452594 21.1346 0.706843 21.0218 0.974477 21.0167L2.58048 21.0001ZM20.9949 35.7444C20.989 36.0131 20.8743 36.2679 20.6771 36.4507C20.4799 36.6334 20.217 36.7285 19.9485 36.7141C12.0671 36.1899 5.78918 29.9195 5.25935 22.0427C5.24495 21.7743 5.34003 21.5115 5.52288 21.3144C5.70573 21.1173 5.96072 21.0027 6.22958 20.9968H7.82896C8.31265 20.9686 8.7277 21.3375 8.75613 21.8209C9.16031 27.9206 14.0035 32.7881 20.1041 33.2258C20.6058 33.2639 20.993 33.6827 20.9915 34.1856L20.9949 35.7444ZM11.4946 21.0001H13.1006C13.5808 21.0046 13.9805 21.3698 14.0278 21.8474C14.4187 25.036 16.9281 27.551 20.1173 27.9503C20.6077 28.0111 20.9788 28.4229 20.9882 28.9167V30.4821C20.9864 30.7519 20.8721 31.0088 20.6729 31.1909C20.4737 31.3731 20.2076 31.464 19.9385 31.4419C14.9667 30.9405 11.0344 27.0117 10.531 22.0427C10.5108 21.7743 10.6031 21.5095 10.7858 21.3118C10.9686 21.1141 11.2253 21.0012 11.4946 21.0001ZM20.9915 53.411C20.9915 52.9575 21.2101 52.5836 21.8922 52.4975C30.8607 52.0363 38.0287 44.8734 38.492 35.9098C38.5253 35.4001 38.9511 35.005 39.4622 35.0096H41.1179C41.3533 34.9978 41.5832 35.0833 41.7536 35.2461C41.9239 35.4089 42.0198 35.6346 42.0186 35.8701C41.5727 46.7337 32.9098 55.4637 22.0446 55.9991C21.7771 56.0107 21.5163 55.914 21.3212 55.7308C21.1261 55.5476 21.0132 55.2935 21.0081 55.026L20.9915 53.411ZM35.7568 35.0063C36.0257 35.0122 36.2807 35.1268 36.4635 35.3239C36.6464 35.521 36.7415 35.7838 36.727 36.0522C36.2018 43.934 29.9208 50.2103 22.0346 50.7335C21.7661 50.7479 21.5032 50.6529 21.306 50.4701C21.1088 50.2874 20.9941 50.0325 20.9882 49.7638V48.1653C20.96 47.6818 21.3291 47.267 21.8128 47.2386C27.9157 46.8346 32.7857 41.994 33.2236 35.8966C33.2618 35.3952 33.6808 35.0082 34.1839 35.0096L35.7568 35.0063ZM20.9982 44.4916V42.8865C21.0026 42.4066 21.368 42.0071 21.8459 41.9598C25.0351 41.5694 27.551 39.063 27.952 35.8768C28.0128 35.3866 28.4249 35.0157 28.9189 35.0063H30.3064C31.0613 35.0063 31.515 35.4961 31.4587 36.0621C30.9553 41.0311 27.023 44.9599 22.0512 45.4613C21.7798 45.4846 21.5112 45.3927 21.311 45.2083C21.1107 45.0239 20.9972 44.7638 20.9982 44.4916Z" fill="#FF5C00"/></svg>
                     </div>
                     <div class="tech-item-label">Streamr Network</div>
-                </div>
-                <div class="tech-item">
+                </a>
+                <a href="https://ethereum.org" target="_blank" rel="noopener" class="tech-item" style="text-decoration:none;color:inherit;">
                     <div class="tech-item-logo">
                         <svg viewBox="0 0 256 417" fill="none"><path d="M127.961 0l-2.795 9.5v275.668l2.795 2.79 127.962-75.638z" fill="#687DE3"/><path d="M127.962 0L0 212.32l127.962 75.639V154.158z" fill="#8C9FEF"/><path d="M127.961 312.187l-1.575 1.92v98.199l1.575 4.6L256 236.587z" fill="#687DE3"/><path d="M127.962 416.905v-104.72L0 236.585z" fill="#8C9FEF"/><path d="M127.961 287.958l127.96-75.637-127.96-58.162z" fill="#4E68D0"/><path d="M0 212.32l127.96 75.638v-133.8z" fill="#687DE3"/></svg>
                     </div>
                     <div class="tech-item-label">Ethereum</div>
-                </div>
-                <div class="tech-item">
+                </a>
+                <a href="https://polygon.technology" target="_blank" rel="noopener" class="tech-item" style="text-decoration:none;color:inherit;">
                     <div class="tech-item-logo">
                         <svg viewBox="0 0 38.4 33.5" fill="none"><path fill="#8247E5" d="M29 10.2c-.7-.4-1.6-.4-2.4 0L21 13.5l-3.8 2.1-5.5 3.3c-.7.4-1.6.4-2.4 0L5 16.3c-.7-.4-1.2-1.2-1.2-2.1v-5c0-.8.4-1.6 1.2-2.1l4.3-2.5c.7-.4 1.6-.4 2.4 0L16 7.2c.7.4 1.2 1.2 1.2 2.1v3.3l3.8-2.2V7c0-.8-.4-1.6-1.2-2.1l-8-4.7c-.7-.4-1.6-.4-2.4 0L1.2 5C.4 5.4 0 6.2 0 7v9.4c0 .8.4 1.6 1.2 2.1l8.1 4.7c.7.4 1.6.4 2.4 0l5.5-3.2 3.8-2.2 5.5-3.2c.7-.4 1.6-.4 2.4 0l4.3 2.5c.7.4 1.2 1.2 1.2 2.1v5c0 .8-.4 1.6-1.2 2.1L29 28.8c-.7.4-1.6.4-2.4 0l-4.3-2.5c-.7-.4-1.2-1.2-1.2-2.1v-3.3l-3.8 2.2v3.3c0 .8.4 1.6 1.2 2.1l8.1 4.7c.7.4 1.6.4 2.4 0l8.1-4.7c.7-.4 1.2-1.2 1.2-2.1V17c0-.8-.4-1.6-1.2-2.1L29 10.2z"/></svg>
                     </div>
                     <div class="tech-item-label">Polygon PoS</div>
-                </div>
+                </a>
             </div>
         </div>
     </section>
@@ -3165,11 +3725,11 @@
             </div>
             <ul class="footer-links">
                 <li><a href="https://app.pombo.cc">App</a></li>
-                <li><a href="#manifesto">Manifesto</a></li>
-                <li><a href="#security">Security</a></li>
+                <li><a href="https://app.pombo.cc/#/channel/0xae340e799e8151f6a4999d245e466197aa217667/7c370230bffd5631-1">Official Channel</a></li>
+                <li><a href="#manifesto">Principles</a></li>
+                <li><a href="#hood">How it works</a></li>
+                <li><a href="https://x.com/app_Pombo" target="_blank" rel="noopener">𝕏</a></li>
                 <li><a href="https://github.com/Ocnrb/Pombo" target="_blank" rel="noopener">GitHub</a></li>
-                <li><a href="https://streamr.network" target="_blank" rel="noopener">Streamr</a></li>
-                <li><a href="https://ethereum.org" target="_blank" rel="noopener">Ethereum</a></li>
             </ul>
         </div>
     </footer>
@@ -3210,8 +3770,78 @@
             });
         });
 
-        // Encryption animation
+        // Ownership tabs
         (() => {
+            const tabs = document.querySelectorAll('.own-tab');
+            const panels = document.querySelectorAll('.own-panel');
+            const container = document.querySelector('.own-panels');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.dataset.own;
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    const activePanel = document.querySelector('.own-panel.active');
+                    const nextPanel = document.getElementById('panel-' + target);
+                    if (activePanel === nextPanel) return;
+
+                    if (activePanel) {
+                        container.style.minHeight = activePanel.offsetHeight + 'px';
+                    }
+                    panels.forEach(p => p.classList.remove('active'));
+                    nextPanel.classList.add('active');
+
+                    requestAnimationFrame(() => {
+                        container.style.minHeight = nextPanel.offsetHeight + 'px';
+                        setTimeout(() => { container.style.minHeight = ''; }, 500);
+                    });
+                });
+            });
+        })();
+
+        // Hood tabs
+        (() => {
+            const tabs = document.querySelectorAll('.hood-tab');
+            const panels = document.querySelectorAll('.hood-panel');
+            const container = document.querySelector('.hood-panels');
+            let encryptStarted = false;
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.dataset.hood;
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    const activePanel = document.querySelector('.hood-panel.active');
+                    const nextPanel = document.getElementById('panel-' + target);
+
+                    if (activePanel === nextPanel) return;
+
+                    // Smoothly resize container
+                    if (activePanel) {
+                        container.style.minHeight = activePanel.offsetHeight + 'px';
+                    }
+
+                    panels.forEach(p => p.classList.remove('active'));
+                    nextPanel.classList.add('active');
+
+                    requestAnimationFrame(() => {
+                        container.style.minHeight = nextPanel.offsetHeight + 'px';
+                        setTimeout(() => { container.style.minHeight = ''; }, 500);
+                    });
+
+                    // Start encrypt demo when security tab first activated
+                    if (target === 'security' && !encryptStarted) {
+                        encryptStarted = true;
+                        setTimeout(startEncryptCycle, 300);
+                    }
+                });
+            });
+        })();
+
+        // Encryption animation
+        function startEncryptCycle() {
             const messages = [
                 'hey, want to collaborate on the proposal?',
                 'The new contract is deployed on Polygon.',
@@ -3227,7 +3857,7 @@
 
             let idx = 0;
             let activeDemo = 'message';
-            let animating = false;
+            let cycleTimer = null;
 
             function fakeCipher(len) {
                 let s = '';
@@ -3235,34 +3865,38 @@
                 return s.match(/.{1,32}/g).join('\n');
             }
 
-            // Tab switching
+            // Encrypt demo sub-tabs
             document.querySelectorAll('.encrypt-demo-tab').forEach(tab => {
                 tab.addEventListener('click', () => {
                     const demo = tab.dataset.demo;
                     if (demo === activeDemo) return;
                     activeDemo = demo;
+                    clearTimeout(cycleTimer);
                     document.querySelectorAll('.encrypt-demo-tab').forEach(t => t.classList.remove('active'));
                     tab.classList.add('active');
-                    document.querySelectorAll('.encrypt-demo-panel').forEach(p => p.style.display = 'none');
+                    document.querySelectorAll('#encrypt-demo .encrypt-demo-panel').forEach(p => p.style.display = 'none');
                     document.getElementById('demo-' + demo).style.display = '';
                     if (demo === 'ecdh') runEcdh();
                     else if (demo === 'wallet') runWallet();
+                    else cycle();
                 });
             });
 
-            // Message encryption cycle
             function cycle() {
                 if (activeDemo !== 'message') return;
+                clearTimeout(cycleTimer);
                 const plain = messages[idx];
                 idx = (idx + 1) % messages.length;
 
+                // Show plaintext
                 msgEl.textContent = plain;
                 msgEl.classList.remove('cipher');
                 barEl.style.width = '0%';
                 statusEl.className = 'encrypt-demo-status';
                 statusEl.innerHTML = '<span class="dot"></span> Plaintext';
 
-                setTimeout(() => {
+                // Wait for user to read, then encrypt
+                cycleTimer = setTimeout(() => {
                     if (activeDemo !== 'message') return;
                     statusEl.className = 'encrypt-demo-status encrypting';
                     statusEl.innerHTML = '<span class="dot"></span> Encrypting…';
@@ -3289,21 +3923,18 @@
                             barEl.style.width = '100%';
                             statusEl.className = 'encrypt-demo-status encrypted';
                             statusEl.innerHTML = '<span class="dot"></span> Encrypted · AES-256-GCM';
-                            setTimeout(cycle, 3000);
+                            cycleTimer = setTimeout(cycle, 3000);
                         }
                     }, 60);
                 }, 2000);
             }
 
-            // ECDH animation
             function runEcdh() {
                 const nodes = ['ecdh-a', 'ecdh-mid', 'ecdh-b'];
                 const arrows = ['ecdh-arrow1', 'ecdh-arrow2'];
                 const bar = document.getElementById('ecdh-bar');
                 const status = document.getElementById('ecdh-status');
                 const mid = document.getElementById('ecdh-mid');
-
-                // Reset
                 nodes.forEach(id => { const el = document.getElementById(id); el.className = 'encrypt-demo-node'; });
                 arrows.forEach(id => { const el = document.getElementById(id); el.className = 'encrypt-demo-arrow'; });
                 bar.style.width = '0%';
@@ -3344,12 +3975,10 @@
                     }},
                     { delay: 3500, fn() { if (activeDemo === 'ecdh') runEcdh(); }}
                 ];
-
                 let t = 0;
                 steps.forEach(s => { t += s.delay; setTimeout(() => { if (activeDemo === 'ecdh') s.fn(); }, t); });
             }
 
-            // Wallet animation
             function runWallet() {
                 const nodes = ['wallet-pass', 'wallet-scrypt', 'wallet-key'];
                 const arrows = ['wallet-arrow1', 'wallet-arrow2'];
@@ -3357,8 +3986,6 @@
                 const status = document.getElementById('wallet-status');
                 const scryptEl = document.getElementById('wallet-scrypt');
                 const keyEl = document.getElementById('wallet-key');
-
-                // Reset
                 nodes.forEach(id => { const el = document.getElementById(id); el.className = 'encrypt-demo-node'; });
                 arrows.forEach(id => { const el = document.getElementById(id); el.className = 'encrypt-demo-arrow'; });
                 bar.style.width = '0%';
@@ -3403,21 +4030,12 @@
                     }},
                     { delay: 3500, fn() { if (activeDemo === 'wallet') runWallet(); }}
                 ];
-
                 let t = 0;
                 steps.forEach(s => { t += s.delay; setTimeout(() => { if (activeDemo === 'wallet') s.fn(); }, t); });
             }
 
-            // Start when visible
-            const demoEl = document.getElementById('encrypt-demo');
-            const demoObs = new IntersectionObserver((entries) => {
-                if (entries[0].isIntersecting) {
-                    demoObs.unobserve(demoEl);
-                    cycle();
-                }
-            }, { threshold: 0.3 });
-            demoObs.observe(demoEl);
-        })();
+            cycle();
+        }
     </script>
 </body>
 </html>
