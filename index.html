@@ -188,6 +188,7 @@
 
             .dm-visual {
                 order: -1;
+                text-align: left;
             }
 
             .pillars-grid,
@@ -227,6 +228,12 @@
                 flex-direction: column;
                 gap: 1rem;
                 text-align: center;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem 1.25rem;
             }
         }
 
@@ -2525,7 +2532,7 @@
                 text-align: center;
             }
 
-            .dm-visual { order: -1; }
+            .dm-visual { order: -1; text-align: left; }
 
             .pillars-grid {
                 grid-template-columns: 1fr;
@@ -2619,6 +2626,12 @@
                 text-align: center;
             }
 
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem 1.25rem;
+            }
+
             .btn-hero {
                 padding: 0.8125rem 1.75rem;
                 font-size: 0.875rem;
@@ -2626,30 +2639,21 @@
 
             .comp-header-row,
             .comp-row {
-                display: flex;
-                flex-direction: column;
+                grid-template-columns: 1.4fr 1fr 1fr 1fr;
             }
 
             .comp-cell {
-                padding: 0.75rem 1.25rem;
+                padding: 0.625rem 0.5rem;
+                font-size: 0.6875rem;
             }
 
             .comp-label {
-                font-size: 0.875rem;
-                padding-top: 1rem;
+                font-size: 0.6875rem;
             }
 
-            .comp-header-row {
-                display: none;
-            }
-
-            .comp-cell:not(.comp-label)::before {
-                content: attr(data-label);
-                font-size: 0.625rem;
-                text-transform: uppercase;
-                letter-spacing: 0.1em;
-                color: var(--text-3);
-                margin-right: 0.5rem;
+            .comp-col-header {
+                font-size: 0.5625rem;
+                letter-spacing: 0.04em;
             }
 
             .push-spotlight-inner {
@@ -3042,7 +3046,7 @@
                     </div>
                     <div class="dm-bubble sent">
                         <div class="dm-bubble-sender">
-                            <span class="badge badge-green">✓</span>
+                            <svg style="vertical-align:-1px;flex-shrink:0" width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#4ade80" stroke-width="2" fill="none"/><path d="M7.5 12.5l3 3 6-6.5" stroke="#4ade80" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
                             <span style="color:#34d399;">bob.pombo.eth</span>
                         </div>
                         absolutely. let me send you the proposal doc
@@ -3193,15 +3197,6 @@
                                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5z"/></svg>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="arch-text">
-                                    <h3>Why this architecture?</h3>
-                                    <p>
-                                        Smart contracts are the single source of truth for permissions — no server decides who's in or out.
-                                        Keeping live signals separate from saved messages means your typing
-                                        indicators and online status are never stored anywhere. Files are
-                                        transferred directly between peers, without ever touching storage nodes.
-                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -3627,8 +3622,6 @@
             <ul class="footer-links">
                 <li><a href="https://app.pombo.cc">App</a></li>
                 <li><a href="https://app.pombo.cc/#/channel/0xae340e799e8151f6a4999d245e466197aa217667/7c370230bffd5631-1">Official Channel</a></li>
-                <li><a href="#manifesto">Principles</a></li>
-                <li><a href="#hood">How it works</a></li>
                 <li><a href="https://x.com/app_Pombo" target="_blank" rel="noopener">𝕏</a></li>
                 <li><a href="https://github.com/Ocnrb/Pombo" target="_blank" rel="noopener">GitHub</a></li>
             </ul>
