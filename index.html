@@ -1864,20 +1864,23 @@
             font-size: 0.875rem;
             line-height: 1.55;
             color: var(--text-1);
-            background: transparent;
-            padding: 0.625rem 0;
-            align-self: stretch;
-            text-align: center;
-            min-height: 3rem;
+            background: #272a2e;
+            padding: 0.5rem 0.875rem;
+            align-self: flex-end;
+            text-align: left;
+            height: 4.5rem;
             display: flex;
             align-items: center;
-            justify-content: center;
-            transition: color 0.4s, opacity 0.4s;
+            border-radius: 1rem 1rem 0.25rem 1rem;
+            transition: color 0.4s, opacity 0.4s, background 0.4s, border-color 0.4s;
+            border: 1px solid transparent;
+            overflow: hidden;
+            word-break: break-word;
         }
 
         .encrypt-demo-msg.cipher {
             font-family: 'SF Mono', 'Fira Code', monospace;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--accent);
             background: rgba(246,133,27,0.06);
             border: 1px solid rgba(246,133,27,0.12);
@@ -1885,6 +1888,9 @@
             padding: 0.75rem 1rem;
             word-break: break-all;
             opacity: 0.9;
+            align-self: stretch;
+            text-align: center;
+            justify-content: center;
         }
 
         .encrypt-demo-bar {
