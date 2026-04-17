@@ -4325,7 +4325,7 @@
             world.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0xffffff, size: 0.015, transparent: true, opacity: 0.25 })));
         })();
 
-        /* ── Avatar nodes + orbiting icons ── */
+       /* ── Avatar nodes ── */
         var nodes = [];
         var AV_R = 0.30;
 
@@ -4345,18 +4345,8 @@
                 new THREE.MeshBasicMaterial({ map: tex, transparent: true, side: THREE.DoubleSide })
             ));
 
-            /* 3 orbiting icons */
-            var icons = [];
-            var orbitR = 0.48;
-            for (var j = 0; j < 3; j++) {
-                var sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: iconTextures[j], transparent: true, opacity: 0.65 }));
-                sp.scale.set(0.24, 0.24, 1);
-                g.add(sp);
-                icons.push({ sprite: sp, phase: (j / 3) * Math.PI * 2, r: orbitR });
-            }
-
             world.add(g);
-            nodes.push({ group: g, glowMat: glowMat, icons: icons, base: pos.clone() });
+            nodes.push({ group: g, glowMat: glowMat, base: pos.clone() });
         });
 
         /* ── Pombo official logo texture ── */
@@ -4388,14 +4378,30 @@
             var fromI = dir > 0 ? edges[ei][0] : edges[ei][1];
             var toI   = dir > 0 ? edges[ei][1] : edges[ei][0];
 
+            // Criar um grupo para o Pombo manter tudo centralizado
+            var group = new THREE.Group();
+            world.add(group);
+
             var bird = new THREE.Sprite(new THREE.SpriteMaterial({ map: birdTex, transparent: true, opacity: 0 }));
-            bird.scale.set(0.52, 0.52, 1);
-            world.add(bird);
+            bird.scale.set(0.56, 0.56, 1);
+            group.add(bird);
+            
             var msg = new THREE.Sprite(new THREE.SpriteMaterial({ map: msgTex, transparent: true, opacity: 0 }));
             msg.scale.set(0.32, 0.32, 1);
-            world.add(msg);
+            msg.position.set(0, -0.21, 0);
+            group.add(msg);
 
-            couriers.push({ bird: bird, msg: msg, from: fromI, to: toI, t: 0, speed: 0.45 + Math.random() * 0.20, flip: dir < 0 });
+            /* 3 orbiting icons ao redor do Pombo */
+            var icons = [];
+            var orbitR = 0.38; // Raio da órbita em torno do Pombo
+            for (var j = 0; j < 3; j++) {
+                var sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: iconTextures[j], transparent: true, opacity: 0 }));
+                sp.scale.set(0.25, 0.25, 1); // ligeiramente mais pequenos
+                group.add(sp);
+                icons.push({ sprite: sp, phase: (j / 3) * Math.PI * 2, r: orbitR });
+            }
+
+            couriers.push({ group: group, bird: bird, msg: msg, icons: icons, from: fromI, to: toI, t: 0, speed: 0.45 + Math.random() * 0.20, flip: dir < 0 });
         }
         spawnCourier(); spawnCourier(); spawnCourier(); spawnCourier();
 
@@ -4435,7 +4441,7 @@
                 ln.geometry.attributes.position.needsUpdate = true;
             });
 
-            /* Nodes float + icon orbits */
+            /* Nodes float (apenas animação do avatar, sem ícones) */
             nodes.forEach(function(n, i) {
                 var ph = i * 1.3;
                 var sx = 0.12 + (i % 5) * 0.02;
@@ -4443,14 +4449,10 @@
                 n.group.position.x = n.base.x + Math.sin(t * (0.18 + i * 0.03) + ph) * sx + Math.cos(t * (0.09 + i * 0.015) + ph * 2.7) * sx * 0.5;
                 n.group.position.y = n.base.y + Math.cos(t * (0.22 + i * 0.025) + ph * 1.4) * sy + Math.sin(t * (0.11 + i * 0.02) + ph * 3.1) * sy * 0.4;
                 n.glowMat.opacity = 0.05 + Math.sin(t * 0.9 + ph) * 0.04;
-                n.icons.forEach(function(ic) {
-                    var a = t * 0.7 + ic.phase + i * 0.5;
-                    ic.sprite.position.set(Math.cos(a) * ic.r, Math.sin(a) * ic.r, 0.05);
-                });
-                n.group.quaternion.copy(camera.quaternion);
+                n.group.quaternion.copy(camera.quaternion); // Virado para a câmara
             });
 
-            /* Couriers */
+            /* Couriers (Pombos viajam e levam os ícones em órbita) */
             var rm = [];
             couriers.forEach(function(c, ci) {
                 c.t += c.speed * 0.006;
@@ -4460,19 +4462,35 @@
                 var px = fp.x + (tp.x - fp.x) * e;
                 var py = fp.y + (tp.y - fp.y) * e + Math.sin(e * Math.PI) * 0.22;
                 var pz = fp.z + (tp.z - fp.z) * e + Math.sin(e * Math.PI) * 0.1;
-                c.bird.position.set(px, py, pz + 0.08);
+                
+                // Mover o grupo inteiro do Pombo
+                c.group.position.set(px, py, pz + 0.08);
+                c.group.quaternion.copy(camera.quaternion); // Para a órbita ficar sempre de frente
+
                 c.bird.material.opacity = 0.9 * fade;
-                c.msg.position.set(px, py - 0.21, pz + 0.08);
                 c.msg.material.opacity = 0.8 * fade;
+
+                // Fazer os ícones orbitarem e desvanecerem com o Pombo
+                c.icons.forEach(function(ic) {
+                    var a = t * 2.0 + ic.phase; // 2.0 define a velocidade da órbita
+                    ic.sprite.position.set(Math.cos(a) * ic.r, Math.sin(a) * ic.r, 0.05);
+                    ic.sprite.material.opacity = 0.65 * fade;
+                });
+
                 if (c.t > 0.78) nodes[c.to].glowMat.opacity = Math.min(0.3, nodes[c.to].glowMat.opacity + 0.006);
                 if (c.t >= 1) rm.push(ci);
             });
+
+            /* Limpeza de Pombos que chegaram ao destino */
             for (var i = rm.length - 1; i >= 0; i--) {
                 var o = couriers[rm[i]];
-                world.remove(o.bird); world.remove(o.msg);
-                o.bird.material.dispose(); o.msg.material.dispose();
+                world.remove(o.group);
+                o.bird.material.dispose(); 
+                o.msg.material.dispose();
+                o.icons.forEach(function(ic) { ic.sprite.material.dispose(); });
                 couriers.splice(rm[i], 1);
             }
+            
             nextSpawn -= 0.016;
             if (nextSpawn <= 0 && couriers.length < 8) { spawnCourier(); nextSpawn = 0.8 + Math.random() * 1.5; }
 
