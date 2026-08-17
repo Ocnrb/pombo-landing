@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pombo.cc/sitemap.xml
